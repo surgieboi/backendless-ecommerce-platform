@@ -32,7 +32,7 @@ const DolaBuyNow = (() => {
   const loadIframe = (merchantId: string) => {
     let dolaIframe: any = document.createElement('iframe');
 
-    dolaIframe.src = `https://dola-embedded-app-develop.vercel.app/${merchantId}`;
+    dolaIframe.src = `https://dola-embedded-app-2i1wi5ggu.vercel.app/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
