@@ -12,6 +12,7 @@ let dola_key = `dola_key_test4849uj493jr3j4843`
 
 const DolaInstance = DolaBuyNow.initialize(dola_key);
 ```
+
 - Dola can be used different ways and different methods are provided for this different use cases and integrations. they are detailed below.
     - attaching it to your cart checkout button. This flow assumes your static site has a cart and now we can attach Dola to your checkout button. All you need is to pass your cart object into the `attachDolaToCart` method and call it in the `onClick` event on that checkout button and we'll take it from there. To enable Dola be able to process your cart though, it needs to have this structure.
     
