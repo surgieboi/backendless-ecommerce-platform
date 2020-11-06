@@ -1,17 +1,13 @@
 import { Cart } from './types';
 
 const DolaBuyNow = (() => {
-  // let DolaDataObject:DolaObject;
-
   const initialize = (key: string) => {
     let merchantId = key;
-    // DolaDataObject.merchantId = merchantId;
     loadIframe(merchantId);
     return DolaBuyNow;
   }
 
   const attachDolaToCart = (cart: Cart) => {
-    // DolaDataObject.cart = cart;
     showIframe(cart);
   }
 
@@ -34,13 +30,13 @@ const DolaBuyNow = (() => {
   }
 
   const loadIframe = (merchantId: string) => {
-    let dolaIframe:HTMLIFrameElement = document.createElement('iframe');
+    let dolaIframe: any = document.createElement('iframe');
 
-    dolaIframe.src = `${process.env.CHECKOUT_APP_URL}/${merchantId}`;
+    dolaIframe.src = `https://dola-embedded-app-develop.vercel.app/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
-    // dolaIframe.loading = 'lazy';
+    dolaIframe.loading = 'lazy';
     dolaIframe.id = 'dolapayIframe';
     dolaIframe.style.position = 'fixed';
     dolaIframe.style.top = '0';
