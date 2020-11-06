@@ -12,11 +12,11 @@ const DolaBuyNow = (() => {
   }
 
   const showIframe = (cart: Cart) => {
-    const iframe  = document.getElementById('dolapayIframe') as HTMLIFrameElement;
+    const iframe  = document.getElementById('dolapayIframe') as any;
     iframe.style.zIndex = '9999';
 
-    console.log('+++++++++++++++++', cart);
-    if (iframe?.contentWindow) {
+    console.log('+++++++++++++++++', cart, iframe);
+    if (iframe.contentWindow) {
       console.log('=============', iframe, iframe?.contentWindow);
       iframe.contentWindow.postMessage(
         { cart },
