@@ -13,20 +13,16 @@ const DolaBuyNow = (() => {
 
   const showIframe = (cart: Cart) => {
     const iframe  = document.getElementById('dolapayIframe') as HTMLIFrameElement;
+    iframe.style.zIndex = '9999';
 
-    if (iframe) {
-      iframe.style.zIndex = '9999';
-
-      let dd = {cart};
-      console.log('+++++++++++++++++', dd);
-      if (iframe?.contentWindow) {
-        return iframe?.contentWindow.postMessage(
-          dd,
-          process.env.CHECKOUT_APP_URL as string
-        );
-      }
-    }
-	  
+    console.log('+++++++++++++++++', cart);
+    if (iframe?.contentWindow) {
+      console.log('=============', iframe, iframe?.contentWindow);
+      iframe.contentWindow.postMessage(
+        { cart },
+        "https://dola-embedded-app-2i1wi5ggu.vercel.app"
+      );
+    }	  
   }
 
   const loadIframe = (merchantId: string) => {
