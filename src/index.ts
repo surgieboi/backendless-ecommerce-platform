@@ -1,29 +1,30 @@
 import { Cart, DolaObject } from "./types";
 
 const DolaBuyNow = (() => {
-  let DolaDataObject:DolaObject;
+  // let DolaDataObject:DolaObject;
 
   const initialize = (key: string) => {
     let merchantId = key
-    DolaDataObject.merchantId = merchantId;
+    // DolaDataObject.merchantId = merchantId;
     loadIframe(merchantId)
     return DolaBuyNow;
   }
 
   const attachDolaToCart = (cart: Cart) => {
-    DolaDataObject.cart = cart;
-    showIframe();
+    // DolaDataObject.cart = cart;
+    showIframe(cart);
   }
 
-  const showIframe = () => {
+  const showIframe = (cart: Cart) => {
     const iframe  = document.getElementById("dolapayIframe") as HTMLIFrameElement;
 
     if (iframe) {
       iframe.style.zIndex = "9999";
 
-      console.log(DolaDataObject, "+++++++++++++++++")
+      let dd = {cart}
+      console.log("+++++++++++++++++", dd)
       iframe?.contentWindow && iframe?.contentWindow.postMessage(
-        DolaDataObject,
+        dd,
         process.env.CHECKOUT_APP_URL as string
       );
     }
@@ -53,7 +54,5 @@ const DolaBuyNow = (() => {
     loadIframe: loadIframe
   }
 })()
-
-DolaBuyNow.initialize('sheskalaba')
 
 export default DolaBuyNow;
