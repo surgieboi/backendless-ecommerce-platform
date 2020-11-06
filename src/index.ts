@@ -4,7 +4,19 @@ const DolaBuyNow = (() => {
   const initialize = (key: string) => {
     let merchantId = key;
     loadIframe(merchantId);
+    attachCloseDolaEventListener();
     return DolaBuyNow;
+  }
+
+  const attachCloseDolaEventListener = () => {
+    window.addEventListener("message", async (event) => {
+      if (event.origin !== "https://dola-embedded-app-2i1wi5ggu.vercel.app") return;
+      const target = document.getElementById("dolapayIframe");
+  
+      if (target && event.data['action'] === "close-dola") {
+        target.style.zIndex = "-9999";
+      }
+    });
   }
 
   const attachDolaToCart = (cart: Cart) => {
@@ -43,7 +55,6 @@ const DolaBuyNow = (() => {
   return {
     initialize: initialize,
     attachDolaToCart: attachDolaToCart,
-    loadIframe: loadIframe
   }
 })()
 
