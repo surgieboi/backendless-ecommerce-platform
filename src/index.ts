@@ -15,9 +15,7 @@ const DolaBuyNow = (() => {
     const iframe  = document.getElementById('dolapayIframe') as any;
     iframe.style.zIndex = '9999';
 
-    console.log('+++++++++++++++++', cart, iframe);
     if (iframe.contentWindow) {
-      console.log('=============', iframe, iframe?.contentWindow);
       iframe.contentWindow.postMessage(
         { cart },
         "https://dola-embedded-app-2i1wi5ggu.vercel.app"
