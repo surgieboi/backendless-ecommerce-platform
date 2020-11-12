@@ -1,42 +1,6 @@
-import { Cart, IframeExtended } from './types';
+import { Cart, CartItem, IframeExtended } from './types';
 
 const DolaBuyNow = (() => {
-  const initialize = (key: string) => {
-    let merchantId = key;
-    loadIframe(merchantId);
-    attachCloseDolaEventListener();
-    return { attachDolaToCart: attachDolaToCart };
-  };
-
-  const attachCloseDolaEventListener = () => {
-    window.addEventListener('message', async event => {
-      if (event.origin !== process.env.CHECKOUT_APP_URL) return;
-      const target = document.getElementById('dolapayIframe');
-
-      if (target && event.data['action'] === 'close-dola') {
-        target.style.zIndex = '-9999';
-      }
-    });
-  };
-
-  const attachDolaToCart = (cart: Cart) => {
-    showIframe(cart);
-  };
-
-  const showIframe = (cart: Cart) => {
-    const iframe: HTMLIFrameElement = document?.getElementById(
-      'dolapayIframe'
-    ) as HTMLIFrameElement;
-
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        { cart },
-        process.env.CHECKOUT_APP_URL as string
-      );
-      iframe.style.zIndex = '9999';
-    }
-  };
-
   const loadIframe = (merchantId: string) => {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
@@ -54,9 +18,62 @@ const DolaBuyNow = (() => {
     document.body.prepend(dolaIframe);
   };
 
+  const attachCloseDolaEventListener = () => {
+    window.addEventListener('message', async event => {
+      if (event.origin !== process.env.CHECKOUT_APP_URL) return;
+      const target = document.getElementById('dolapayIframe');
+
+      if (target && event.data['action'] === 'close-dola') {
+        target.style.zIndex = '-9999';
+      }
+    });
+  };
+
+  const initialize = (key: string) => {
+    let merchantId = key;
+    loadIframe(merchantId);
+    attachCloseDolaEventListener();
+    return {
+      attachDolaToCart: attachDolaToCart,
+      attachDolaToItem: attachDolaToItem,
+    };
+  };
+
+  const attachDolaToCart = (cart: Cart) => {
+    showIframe(cart);
+  };
+
+  const attachDolaToItem = (
+    item: CartItem,
+    discount: number,
+    currency: string
+  ) => {
+    const buildSingleItemCart = {
+      totalPrice: item.price,
+      totalWeight: item.grams,
+      currency: currency,
+      discount: discount,
+      items: [item],
+    };
+    showIframe(buildSingleItemCart);
+  };
+
+  const showIframe = (cart: Cart) => {
+    const iframe: HTMLIFrameElement = document?.getElementById(
+      'dolapayIframe'
+    ) as HTMLIFrameElement;
+
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        { cart, secret: process.env.DOLA_IFRAME_SECRET as string },
+        process.env.CHECKOUT_APP_URL as string
+      );
+      iframe.style.zIndex = '9999';
+    }
+  };
+
   return {
     initialize: initialize,
-    attachDolaToCart: attachDolaToCart,
   };
 })();
 
