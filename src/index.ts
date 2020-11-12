@@ -10,8 +10,7 @@ const DolaBuyNow = (() => {
 
   const attachCloseDolaEventListener = () => {
     window.addEventListener('message', async event => {
-      if (event.origin !== 'https://dola-embedded-app-develop.vercel.app')
-        return;
+      if (event.origin !== process.env.CHECKOUT_APP_URL) return;
       const target = document.getElementById('dolapayIframe');
 
       if (target && event.data['action'] === 'close-dola') {
@@ -41,7 +40,7 @@ const DolaBuyNow = (() => {
   const loadIframe = (merchantId: string) => {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `https://dola-embedded-app-develop.vercel.app/${merchantId}`;
+    dolaIframe.src = `${process.env.CHECKOUT_APP_URL}/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
