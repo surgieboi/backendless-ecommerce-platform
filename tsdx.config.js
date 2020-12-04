@@ -11,6 +11,7 @@ module.exports = {
         'process.env.DOLA_IFRAME_SECRET': JSON.stringify(
           process.env.DOLA_IFRAME_SECRET
         ),
+        'process.env.DOLA_CLOUD': JSON.stringify(process.env.DOLA_CLOUD),
       })
     );
     return config;

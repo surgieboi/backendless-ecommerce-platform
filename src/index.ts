@@ -1,4 +1,5 @@
 import { Cart, CartItem, IframeExtended } from './types';
+import axios from 'axios';
 
 const DolaBuyNow = (() => {
   const loadIframe = (merchantId: string) => {
@@ -29,18 +30,41 @@ const DolaBuyNow = (() => {
     });
   };
 
-  const initialize = (key: string) => {
-    let merchantId = key;
-    loadIframe(merchantId);
-    attachCloseDolaEventListener();
-    return {
-      attachDolaToCart: attachDolaToCart,
-      attachDolaToItem: attachDolaToItem,
-    };
+  const initialize = async (key: string) => {
+    try {
+      const dolaCloud = process.env.DOLA_CLOUD;
+      const initializeDolaSercice = await axios.get(
+        `${dolaCloud}/merchant?key=${key}`
+      );
+
+      const {
+        data: {
+          data: { id, websiteURL },
+        },
+      } = initializeDolaSercice;
+
+      console.log(id, websiteURL);
+
+      if (id) {
+        loadIframe(id);
+        attachCloseDolaEventListener();
+        return {
+          attachDolaToCart: attachDolaToCart,
+          attachDolaToItem: attachDolaToItem,
+        };
+      } else {
+        throw new Error('invalid Dola API key');
+      }
+    } catch (error) {
+      console.log(error.toString());
+      return;
+    }
   };
 
   const attachDolaToCart = (cart: Cart) => {
-    showIframe(cart);
+    if (cart.items.length > 0) {
+      return showIframe(cart);
+    }
   };
 
   const attachDolaToItem = (
@@ -55,6 +79,7 @@ const DolaBuyNow = (() => {
       discount: discount,
       items: [item],
     };
+
     showIframe(buildSingleItemCart);
   };
 
