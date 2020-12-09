@@ -22,7 +22,9 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "axios": "^0.21.0"
+  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -42,7 +44,6 @@
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.4",
     "@size-limit/preset-small-lib": "^4.7.0",
-    "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "size-limit": "^4.7.0",
     "tsdx": "^0.14.1",
