@@ -22,9 +22,10 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {
+  "dependencies": {
     "axios": "^0.21.0"
   },
+  "peerDependencies": {},
   "prettier": {
     "printWidth": 80,
     "semi": true,
