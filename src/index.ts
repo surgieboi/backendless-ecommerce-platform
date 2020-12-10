@@ -6,7 +6,7 @@ const DolaBuyNow = (() => {
   const loadIframe = (merchantId: string) => {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `https://dola-embedded-app-qf70sx00k.vercel.app/${merchantId}`;
+    dolaIframe.src = `https://dola-embedded-app-4f54yn4s1.vercel.app/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
@@ -23,7 +23,7 @@ const DolaBuyNow = (() => {
 
   const attachCloseDolaEventListener = () => {
     window.addEventListener('message', async event => {
-      if (event.origin !== 'https://dola-embedded-app-qf70sx00k.vercel.app')
+      if (event.origin !== 'https://dola-embedded-app-4f54yn4s1.vercel.app')
         return;
       const target = document.getElementById('dolapayIframe');
 
@@ -96,7 +96,7 @@ const DolaBuyNow = (() => {
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(
         { cart, secret: `dola_${tempId}` },
-        'https://dola-embedded-app-qf70sx00k.vercel.app' as string
+        'https://dola-embedded-app-4f54yn4s1.vercel.app' as string
       );
       iframe.style.zIndex = '9999';
     }
