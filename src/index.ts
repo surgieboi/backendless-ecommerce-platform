@@ -2,10 +2,11 @@ import { Cart, CartItem, IframeExtended } from './types';
 import axios from 'axios';
 
 const DolaBuyNow = (() => {
+  let tempId: string;
   const loadIframe = (merchantId: string) => {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `${process.env.CHECKOUT_APP_URL}/${merchantId}`;
+    dolaIframe.src = `https://dola-embedded-app-qf70sx00k.vercel.app/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
@@ -22,7 +23,8 @@ const DolaBuyNow = (() => {
 
   const attachCloseDolaEventListener = () => {
     window.addEventListener('message', async event => {
-      if (event.origin !== process.env.CHECKOUT_APP_URL) return;
+      if (event.origin !== 'https://dola-embedded-app-qf70sx00k.vercel.app')
+        return;
       const target = document.getElementById('dolapayIframe');
 
       if (target && event.data['action'] === 'close-dola') {
@@ -33,9 +35,8 @@ const DolaBuyNow = (() => {
 
   const initialize = async (key: string) => {
     try {
-      const dolaCloud = process.env.DOLA_CLOUD;
       const initializeDolaSercice = await axios.get(
-        `${dolaCloud}/pubmerchant?key=${key}`
+        `https://apidev.dola.me/pubmerchant?key=${key}`
       );
 
       const {
@@ -45,6 +46,7 @@ const DolaBuyNow = (() => {
       } = initializeDolaSercice;
 
       if (id && window.location.origin === websiteURL) {
+        tempId = id;
         const createIframe = loadIframe(id);
         if (createIframe) {
           attachCloseDolaEventListener();
@@ -93,8 +95,8 @@ const DolaBuyNow = (() => {
 
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(
-        { cart, secret: process.env.DOLA_IFRAME_SECRET as string },
-        process.env.CHECKOUT_APP_URL as string
+        { cart, secret: `dola_${tempId}` },
+        'https://dola-embedded-app-qf70sx00k.vercel.app' as string
       );
       iframe.style.zIndex = '9999';
     }
