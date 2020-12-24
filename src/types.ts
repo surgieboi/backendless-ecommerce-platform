@@ -15,6 +15,7 @@ export interface CartItem {
   grams: number;
   variantInfo?: VariantInfo[];
   sku?: string;
+  subTotal: number;
 }
 
 export interface VariantInfo {
