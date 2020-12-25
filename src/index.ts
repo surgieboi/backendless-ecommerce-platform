@@ -151,7 +151,9 @@ const DolaBuyNow = (() => {
 
     console.log(buildSingleItemCart, '=====');
 
-    showIframe(buildSingleItemCart);
+    setTimeout(() => {
+      showIframe(buildSingleItemCart);
+    }, 250);
   };
 
   const showIframe = (cart: Cart) => {
