@@ -86,52 +86,102 @@ const DolaBuyNow = (() => {
         const buyNowInstance = buyNowInstances[index];
 
         buyNowInstance?.addEventListener('click', () => {
-          const item: CartItem = {
-            id: buyNowInstance.dataset.dolaId as string,
-            image: buyNowInstance.dataset.dolaImage as string,
-            quantity: 1,
-            title: buyNowInstance.dataset.dolaTitle as string,
-            price: parseInt(buyNowInstance.dataset.dolaPrice as string, 10) as number,
-            grams: parseInt(buyNowInstance.dataset.dolaWeight as string, 10) as number,
-            sku: buyNowInstance.dataset.dolaSku as string,
-            variantInfo: [],
-            subTotal: (parseInt(buyNowInstance.dataset.dolaPrice as string, 10) as number) * 1,
-          };
-
-          const tempvariants = Object.keys(buyNowInstance?.dataset).filter(e =>
-            e.includes('dolaVariant')
-          );
-
-          const variants = tempvariants.map(e => e.slice(11, e.length));
-
-          if (tempvariants.length > 0) {
-            tempvariants.map((each, index) => {
-              if (variants[index].toLowerCase() === 'quantity') {
-                item.quantity = parseInt(buyNowInstance.dataset[each] as string, 10);
-                item.subTotal = item.price * item.quantity;
-                return item;
-              }
-
-              const tempObj = {
-                id: nanoid(),
-                name: variants[index] as string,
-                value: buyNowInstance.dataset[each] as string,
-              };
-              item.variantInfo?.push(tempObj as VariantInfo);
-              return item;
-            });
+          if (buyNowInstance.dataset?.dolaCartaction === 'true') {
+            handleCartFlow(buyNowInstance, buyNowInstances);
+          } else {
+            handleBuyNowFlow(buyNowInstance);
           }
-
-          return attachDolaToItem(
-            item,
-            parseInt(buyNowInstance?.dataset?.dolaDiscount as string, 10) as number,
-            buyNowInstance?.dataset?.dolaCurrency as string
-          );
         });
       }
     } catch (error) {
       console.log(error.toString());
     }
+  };
+
+  const composeVariantsIntoItem = (buyNowInstance: HTMLDivElement, item: CartItem) => {
+    const tempvariants = Object.keys(buyNowInstance?.dataset).filter(e =>
+      e.includes('dolaVariant')
+    );
+
+    const variants = tempvariants.map(e => e.slice(11, e.length));
+
+    if (tempvariants.length > 0) {
+      tempvariants.map((each, index) => {
+        if (variants[index].toLowerCase() === 'quantity') {
+          item.quantity = parseInt(buyNowInstance.dataset[each] as string, 10);
+          item.subTotal = item.price * item.quantity;
+          return item;
+        }
+
+        const tempObj = {
+          id: nanoid(),
+          name: variants[index] as string,
+          value: buyNowInstance.dataset[each] as string,
+        };
+
+        item.variantInfo?.push(tempObj as VariantInfo);
+        return item;
+      });
+    }
+
+    return item;
+  };
+
+  const composeItemObject = (currentInstance: HTMLDivElement) => {
+    const item: CartItem = {
+      id: currentInstance.dataset.dolaId as string,
+      image: currentInstance.dataset.dolaImage as string,
+      quantity: parseInt(currentInstance.dataset?.dolaQuantity as string, 10) as number,
+      title: currentInstance.dataset.dolaTitle as string,
+      price: parseInt(currentInstance.dataset.dolaPrice as string, 10) as number,
+      grams: parseInt(currentInstance.dataset.dolaWeight as string, 10) as number,
+      sku: currentInstance.dataset.dolaSku as string,
+      variantInfo: [],
+      subTotal: ((parseInt(currentInstance.dataset.dolaPrice as string, 10) as number) *
+        parseInt(currentInstance.dataset?.dolaQuantity as string, 10)) as number,
+    };
+
+    return item;
+  };
+
+  const handleCartFlow = (
+    instance: HTMLDivElement,
+    instances: string | any[] | HTMLCollectionOf<HTMLDivElement>
+  ) => {
+    const cart: Cart = {
+      totalPrice: parseInt(instance.dataset.dolaTotalprice as string, 10),
+      totalWeight: parseInt(instance.dataset.dolaTotalweight as string, 10),
+      currency: instance.dataset.dolaCurrency as string,
+      discount: parseInt(instance.dataset.dolaDiscount as string, 10),
+      items: [],
+    };
+
+    for (let index = 0; index < instances.length; index++) {
+      const itemInstance = instances[index];
+
+      if (itemInstance.dataset?.dolaCart === 'true') {
+        const itemObject = composeItemObject(itemInstance);
+        const composedItem = composeVariantsIntoItem(itemInstance, itemObject);
+        cart.items.push(composedItem);
+      }
+    }
+
+    setTimeout(() => {
+      showIframe(cart);
+    }, 450);
+  };
+
+  const handleBuyNowFlow = (currentInstance: HTMLDivElement) => {
+    const item = composeItemObject(currentInstance);
+
+    // check for variants, if variants exist, parse variants and recompose item object.
+    const composedItem = composeVariantsIntoItem(currentInstance, item);
+
+    return attachDolaToItem(
+      composedItem,
+      parseInt(currentInstance?.dataset?.dolaDiscount as string, 10) as number,
+      currentInstance?.dataset?.dolaCurrency as string
+    );
   };
 
   const attachDolaToCart = (cart: Cart) => {
@@ -149,11 +199,9 @@ const DolaBuyNow = (() => {
       items: [item],
     };
 
-    console.log(buildSingleItemCart, '=====');
-
     setTimeout(() => {
       showIframe(buildSingleItemCart);
-    }, 250);
+    }, 350);
   };
 
   const showIframe = (cart: Cart) => {
