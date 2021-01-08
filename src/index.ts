@@ -4,6 +4,8 @@ import { nanoid } from 'nanoid';
 
 const DolaBuyNow = (() => {
   let tempId: string;
+  let cb: () => void;
+
   const loadIframe = (merchantId: string) => {
     try {
       const dolaIframeExixting = document.getElementById('dolapayIframe');
@@ -37,10 +39,14 @@ const DolaBuyNow = (() => {
       if (target && event.data['action'] === 'close-dola') {
         target.style.zIndex = '-9999';
       }
+
+      if (target && event.data === 'order-complete') {
+        cb();
+      }
     });
   };
 
-  const initialize = async (key: string) => {
+  const initialize = async (key: string, callback: () => void) => {
     try {
       const initializeDolaSercice = await axios.get(
         `https://apidev.dola.me/pubmerchant?key=${key}`
@@ -57,13 +63,13 @@ const DolaBuyNow = (() => {
         const createIframe = loadIframe(id);
         if (createIframe) {
           attachCloseDolaEventListener();
-          setTimeout(() => {
+          setInterval(() => {
             attachActionToBuyNow(id);
-          });
+          }, 2000);
+
+          cb = callback;
           return {
             id: id,
-            attachDolaToCart: attachDolaToCart,
-            attachDolaToItem: attachDolaToItem,
           };
         }
         throw new Error('error attaching Dola');
@@ -86,11 +92,12 @@ const DolaBuyNow = (() => {
         const buyNowInstance = buyNowInstances[index];
 
         buyNowInstance?.addEventListener('click', () => {
-          if (buyNowInstance.dataset?.dolaCartaction === 'true') {
+          if (buyNowInstance.dataset.dolaCartaction === 'true') {
             handleCartFlow(buyNowInstance, buyNowInstances);
-          } else {
+          } else if (buyNowInstance.dataset.dolaBuynow === 'true') {
             handleBuyNowFlow(buyNowInstance);
           }
+          return;
         });
       }
     } catch (error) {
@@ -184,12 +191,6 @@ const DolaBuyNow = (() => {
     );
   };
 
-  const attachDolaToCart = (cart: Cart) => {
-    if (cart.items.length > 0) {
-      return showIframe(cart);
-    }
-  };
-
   const attachDolaToItem = (item: CartItem, discount: number, currency: string) => {
     const buildSingleItemCart = {
       totalPrice: item.subTotal,
@@ -201,7 +202,7 @@ const DolaBuyNow = (() => {
 
     setTimeout(() => {
       showIframe(buildSingleItemCart);
-    }, 350);
+    }, 250);
   };
 
   const showIframe = (cart: Cart) => {
