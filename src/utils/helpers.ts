@@ -18,7 +18,7 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `http://localhost:3007/${merchantId}`;
+    dolaIframe.src = `https://buy-now-examples.vercel.app/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
@@ -39,7 +39,7 @@ export const createDolaIframe = (merchantId: string) => {
 export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
   try {
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'http://localhost:3007') return;
+      if (event.origin !== 'https://buy-now-examples.vercel.app') return;
 
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-999999';
@@ -62,7 +62,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage(
           { cart, secret: `dola_${merchantId}` },
-          'http://localhost:3007' as string
+          'https://buy-now-examples.vercel.app' as string
         );
         iframe.style.zIndex = '9999';
       }
@@ -73,7 +73,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
 };
 
 export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
-  if (event.origin !== 'http://localhost:3007') return;
+  if (event.origin !== 'https://buy-now-examples.vercel.app') return;
 
   const dolaWindowObject = ((window as unknown) as DolaExtendedWindow).Dolapay;
   dolaWindowObject.orderCompleted = true;
