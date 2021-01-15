@@ -1,9 +1,13 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types"],
+  "include": ["src/**/*", "types"],
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "module": "commonjs",
+    "lib": ["dom", "es6"],
+    "baseUrl": "./src",
+    "paths": {
+      "~*": ["./*"]
+    },
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,

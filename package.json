@@ -14,16 +14,17 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "start": "parcel src/index.ts",
+    "build": "parcel build src/index.ts",
+    "lint": "tsc --noEmit",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dolapay/dola-buy-now.git"
+  },
   "dependencies": {
-    "axios": "^0.21.0",
     "nanoid": "^3.1.20"
   },
   "peerDependencies": {},
@@ -45,8 +46,8 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.7.0",
+    "parcel-bundler": "^1.12.4",
     "size-limit": "^4.7.0",
-    "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
     "typescript": "^4.0.5"
   }

@@ -24,11 +24,17 @@ export interface VariantInfo {
   value: string;
 }
 
-export interface DolaObject {
-  cart: Cart;
-  merchantId: string;
-}
-
 export interface IframeExtended extends HTMLIFrameElement {
   loading?: 'lazy' | 'eager' | 'auto';
+}
+
+export interface IDola {
+  id: string;
+  attachDola?: (cart: Cart, callback: () => void) => void;
+  type?: string;
+  orderCompleted: boolean;
+}
+
+export interface DolaExtendedWindow extends Window {
+  Dolapay: any;
 }
