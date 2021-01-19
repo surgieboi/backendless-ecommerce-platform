@@ -42,7 +42,7 @@ export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
       if (event.origin !== 'https://dev.checkout.dola.me') return;
 
       if (event.data['action'] === 'close-dola') {
-        dolaIframe.style.zIndex = '-999999';
+        dolaIframe.style.zIndex = '-99999';
       }
     });
   } catch (error) {
@@ -64,7 +64,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
           { cart, secret: `dola_${merchantId}` },
           'https://dev.checkout.dola.me' as string
         );
-        iframe.style.zIndex = '9999';
+        iframe.style.zIndex = '99999';
       }
     }, 350);
   } catch (error) {
@@ -209,5 +209,3 @@ const parseVariantsIntoItem = (dataset: { [key: string]: any }, item: CartItem) 
 
   return item;
 };
-
-export const confirmDolaEventIsAttached = () => {};

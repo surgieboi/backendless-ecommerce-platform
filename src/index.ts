@@ -1,4 +1,4 @@
-import { Cart } from './types';
+import { Cart, DolaExtendedWindow } from './types';
 import {
   loadIframe,
   showIframe,
@@ -28,15 +28,12 @@ const Dola = (() => {
         if (isNil(dolaWindowObject.id)) throw new Error('invalid merchant id');
 
         attachDolaEventListeners(loadIframe(dolaWindowObject.id));
+        ((window as unknown) as DolaExtendedWindow).Dolapay.orderCompleted = false;
 
-        dolaWindowObject = {
-          ...dolaWindowObject,
-          attachDola: attachDola,
-          orderCompleted: false,
-        };
-
-        if (dolaWindowObject.type === 'custom') {
-          setInterval(() => addListenerToInstances(dolaWindowObject.id), 2000);
+        if (dolaWindowObject.type === 'basic') {
+          ((window as unknown) as DolaExtendedWindow).Dolapay.attachDola = attachDola;
+        } else if (dolaWindowObject.type === 'custom') {
+          setInterval(() => addListenerToInstances(dolaWindowObject.id), 1000);
         } else {
           throw new Error('invalid buy now implementation type');
         }
