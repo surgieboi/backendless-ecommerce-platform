@@ -1,231 +1,252 @@
 # Dola Buy Now
 
-This is Dola's Buy Now button, tentatively called "Now", transforms any HTML element into a shoppable product, or storefront (i.e multiple Buy Now buttons on a single page), with a 1-click checkout. This is done through an on-click function, this repository holds the code, and below is documentation for integrating with your static site. For a demo of the buy now in action, checkout the [Buy now example site](https://buy-now-examples.vercel.app/).
+This is Dola's Buy Now button, tentatively called "Now", it enables you transform any HTML element into a shoppable product, or storefront (i.e multiple Buy Now buttons on a single page), with a 1-click checkout. This is done through an on-click function, this repository holds the code, and below is documentation for integrating with your static site. For a demo of the buy now in action, checkout the [Buy now example site](https://buy-now-examples.vercel.app/).
 
-## How to use
+![ELLIOT X VERCEL](Buynow-example.png)
 
-- A Dola merchant account is required to use the Buy now, so navigate to [Dola](https:dola.me)'s website to set up your merchant account. and retrieve a `Javascript` script snippet, make sure to confirm the `merchantId` field is appropriately set.
-- This script helps initialize Dola in 1 of 2 different ways depending your use case and platform.
+## Features
 
-  - First method requires setting the `type` field in the initial Dolapay object in your script to basic, like so. `type:'basic'`. This method is intended to be used by Developers building static websites and are familiar with javascript.
-    A sample of a basic script is referenced below. remember to swap in your `merchantId`.
+- Build and deploy a static site with a full internationalized checkout experience built in.
 
-    ```js
-    !(function () {
-      var merchantId = 'randomMerchantId',
-        a = window,
-        e = document;
-      a.Dolapay = { id: merchantId, type: 'basic' };
-      var n = function () {
-        var a = e.createElement('script');
-        (a.type = 'text/javascript'),
-          (a.async = !0),
-          (a.id = 'doladolabillsyall'),
-          (a.dataset.dolaMerchantId = merchantId),
-          (a.src = 'https://dola-buy-now.vercel.app');
-        var n = e.getElementsByTagName('script')[0];
-        n.parentNode.insertBefore(a, n);
-      };
-      'complete' === document.readyState
-        ? n()
-        : a.attachEvent
-        ? a.attachEvent('onload', n)
-        : a.addEventListener('load', n, !1);
-    })();
-    ```
+- Works accross all modern browsers and devices.
+- Get up and running on your backendless ecommerce platform with just 1 script.
+- Supports no-code/ low-code platforms.
+- Retain full creative control of your platform, plug in non-invasive checkout experience allowing your users retain your brand feel.
 
-    - With this method, The buy now is assessible via the global Dolapay object. this object exposes an `attachDola` method, which accepts a `cart` object. The shape of this object is described below.
+## Getting Started
 
-      ```ts
-      interface Cart {
-        totalPrice: number;
-        totalWeight: number;
-        currency: string;
-        discount: number;
-        items: CartItem[];
-      }
+1. Login to [Dola](https:dola.me).
 
-      interface CartItem {
-        id: string;
-        image: string;
-        quantity: number;
-        title: string;
-        price: number;
-        grams: number;
-        variantInfo?: VariantInfo[];
-        sku?: string;
-        subTotal: number;
-      }
+2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. make sure that the `websiteURL` field matches the baseURL of your site.\*
 
-      interface VariantInfo {
-        id: string;
-        name: string;
-        value: string;
-      }
-      ```
+3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `HTML Attributes` option. Each option exposes a corresponding script for getting you started for that option. simply copy and paste this script into your app to get started with `Now`;
 
-    - The `attachDola` method is intended to be called inside of an onClick method. This triggers an the Dola Checkout app on your website. Please note that the url of your site has to match the url provided as the site of your store during the onboarding, a discrepancy will result in dola failing silently to display on your website. Below is an example of how to access and use the `attachDola` method.
+- This guide will help you understand how each option works and how to implement each with Dola.\*
 
-      ```js
-      const cart = {
-        totalPrice: 35000,
-        totalWeight: 543,
-        currency: 'USD',
-        discount: 0,
-        items: [
-          {
-            id: 'randomId',
-            image: 'https://linkToproductimage',
-            quantity: 1,
-            title: 'sample product',
-            price: 35000,
-            grams: 543,
-            sku: 'randomproductsku',
-            subTotal: 35000,
-            variantInfo: [],
-          },
-        ],
-      };
+## Installation
 
-      window.Dolapay.attachDola(cart);
-      ```
+> Paste the copied script snippet for your preferred setup option in to the `<head>` section of your base html file.
 
-    - Depending on the structure of your product, the cart and its elements need to be described in the above shape for the Buy now. The above example is for a `Simple product`, a product without variants.
+## Set up Options
 
-    - If your product has variants, a `Complex product`, then a variantInfo object will need to be described when a product's variant is selected. below is an example of a cart including a selected product variant.
+Dola can be implemented in two different ways, via a `Javascript SDK` option or an `HTML Attributes` approach.
 
-      ```js
-      const cart = {
-        totalPrice: 35000,
-        totalWeight: 543,
-        currency: 'USD',
-        discount: 0,
-        items: [
-          {
-            id: 'randomId',
-            image: 'https://linkToproductimage',
-            quantity: 1,
-            title: 'sample product',
-            price: 35000,
-            grams: 543,
-            sku: 'randomproductsku',
-            subTotal: 35000,
-            variantInfo: [{ id: 'uniqueIDForVariant', name: 'color', valur: 'green' }],
-          },
-        ],
-      };
+### JavaScript SDK
 
-      window.Dolapay.attachDola(cart);
-      ```
+The script snippet initialises Dola and attaches a global `Dolapay` object to the global `Window` object. The global Dolapay object can be accessed like this `window.Dolapay`.
 
-  - This method is designed primarily for no-code platforms and platforms that allow for minimal javascript. For this method, you are requiresd to set the `type` field in the initial Dolapay object in your script to custom, like so. `type:'custom'`. A sample of a basic script is referenced below. remember to swap in your `merchantId`.
+```ts
+interface IDolapay {
+  id: string;
+  attachDola?: (cart: Cart, callback: () => void) => void;
+  type?: string;
+  orderCompleted: boolean;
+}
 
-    ```js
-    !(function () {
-      var merchantId = 'randomMerchantId',
-        a = window,
-        e = document;
-      a.Dolapay = { id: merchantId, type: 'custom' };
-      var n = function () {
-        var a = e.createElement('script');
-        (a.type = 'text/javascript'),
-          (a.async = !0),
-          (a.id = 'doladolabillsyall'),
-          (a.dataset.dolaMerchantId = merchantId),
-          (a.src = 'https://dola-buy-now.vercel.app');
-        var n = e.getElementsByTagName('script')[0];
-        n.parentNode.insertBefore(a, n);
-      };
-      'complete' === document.readyState
-        ? n()
-        : a.attachEvent
-        ? a.attachEvent('onload', n)
-        : a.addEventListener('load', n, !1);
-    })();
-    ```
 
-    - Unlike the first method where you have a method and you apply your cart to it. For this method, The product is described to dola via custom data attributes on the element with the onClick event attached.
+window.Dolapay:IDolapay
+```
 
-      Dola is attached differently to cart than it is to a single product for immediate checkout. For how to attach Dola to a single product for immediate checkout, see below for an example of a `Simple product` with no variants, notice that the `data-dola-buynow` attribute is set to true to trigger an immediate checkout scenario on the selected single product.
+- `id`: This property refers to your `merchantId` it is included in the script snippet copied from the developers section of your profile settings.
 
-      ```html
-      <div>
-        <button
-          data-dola-buynow="true"
-          data-dola-quantity="1"
-          data-dola-title="productName"
-          data-dola-image="imageURL"
-          data-dola-price="35000"
-          data-dola-weight="3000"
-          data-dola-sku="productsku"
-          data-dola-id="uniqueProductId"
-          data-dola-discount="0"
-          data-dola-currency="USD"
-          className="window.Dolapay.id"
-        >
-          Buy Now
-        </button>
-      </div>
-      ```
+- `attachDola`: This method triggers an instance of Dola's 1-Click Checkout. It accepts a `cart` object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's One click checkout.
 
-    - For a single `Complex product`, variants can be added like this, `data-dola-variant-*nameOfVariant*="variant value"`
+  ```ts
+  interface Cart {
+    totalPrice: number;
+    totalWeight: number;
+    currency: string;
+    items: CartItem[];
+  }
 
-      ```html
-      <div>
-        <button
-          data-dola-buynow="true"
-          data-dola-quantity="1"
-          data-dola-title="productName"
-          data-dola-image="imageURL"
-          data-dola-price="35000"
-          data-dola-weight="3000"
-          data-dola-sku="productsku"
-          data-dola-id="uniqueProductId"
-          data-dola-discount="0"
-          data-dola-currency="USD"
-          data-dola-variant-color="red"
-          className="window.Dolapay.id"
-        >
-          Buy Now
-        </button>
-      </div>
-      ```
+  interface CartItem {
+    id: string;
+    image: string;
+    quantity: number;
+    title: string;
+    price: number;
+    grams: number;
+    variantInfo?: VariantInfo[];
+    sku?: string;
+    subTotal: number;
+  }
 
-    - For how to attach Dola to a cart and trigger it checkout on cart, First, attach the following custom data attributes to the cart element with the onClick event. note that in this case, the `data-dola-cartAction` custom data attribute is set to true.
+  interface VariantInfo {
+    id: string;
+    name: string;
+    value: string;
+  }
 
-      ```html
-      <div>
-        <button
-          data-dola-totalprice="totalCartTotal"
-          data-dola-totalweight="totalCartWeight"
-          data-dola-discount="totalApplicableDiscount"
-          data-dola-currency="MerchantPrimaryCurrency e.g| USD"
-          data-dola-cartaction="true"
-          className="window.Dolapay.id"
-        >
-          Checkout
-        </button>
-      </div>
-      ```
 
-    - As cart details are displayed on your custom cart designs, append these custom data attributes to each of the products in the cart. if the product has any variants, specify it with the same convention described above, `data-dola-variant-*nameOfVariant*="variant value"`.
+  window.Dolapay.attachDola:(cart: Cart, callback: () => void): void
+  ```
 
-      ```html
-      <div
-        className="window.Dolapay.id"
-        data-dola-title="currentProductTitle"
-        data-dola-title="productName"
-        data-dola-image="imageURL"
-        data-dola-price="35000"
-        data-dola-weight="3000"
-        data-dola-sku="productsku"
-        data-dola-id="uniqueProductId"
-        data-dola-discount="0"
-        data-dola-currency="USD"
-        data-dola-cart="true"
-        data-dola-quantity="2"
-        data-dola-variant-color="red"
-      >
-        Checkout
-      </div>
-      ```
+  Below is a sample implementation of the `attachDola` method.
+
+  ```js
+  const cart = {
+    totalPrice: 35000,
+    totalWeight: 543,
+    currency: 'USD',
+    items: [
+      {
+        id: 'randomId',
+        image: 'https://linkToproductimage',
+        quantity: 1,
+        title: 'sample product',
+        price: 35000,
+        grams: 543,
+        sku: 'randomproductsku',
+        subTotal: 35000,
+        variantInfo: [{ id: 'uniqueIDForVariant', name: 'color', valur: 'green' }],
+      },
+    ],
+  };
+
+  window.Dolapay.attachDola(cart);
+  ```
+
+- `type`: This property refers to the initialization method of the Buy Now instance.
+
+  - `basic`: means the Buy Now instance was created as a `JavaScript SDK` instance.
+  - `custom`: means the Buy Now instance was created as an `HTML Attributes` instance.
+
+- `orderCompleted`: This property exposes the state of the current order.
+
+### HTML Attributes
+
+With the setup option, custom data attributes are used to trigger checkout on the element. Below are supported custom dola data attributes. All attributes accept strings.
+
+These elements can be grouped into different categories based on their functions. There are attributes that describe the kind of action to be triggered on that element and there are other attributes that describe details of the product or the cart.
+
+But before attributes are set, append the `merchantId` from the global Dolapay object as a class on the element.
+
+```tsx
+className={window.Dolapay.id}
+```
+
+There are 3 attributes that describe actions. These attributes are not used at the same time, only 1 action can be trigerred on an element. Each action is used alongside other attributes that describe the product/cart details.
+
+- `data-dola-buynow`: This is an optional attribute, it is used to indicate that the element should trigger an immediate checkout when clicked on. To turn this on, set it to `"true"`.
+
+  ```html
+  <div>
+    <button
+      data-dola-buynow="true"
+      data-dola-quantity="1"
+      data-dola-title="productName"
+      data-dola-image="imageURL"
+      data-dola-price="35000"
+      data-dola-weight="3000"
+      data-dola-sku="productsku"
+      data-dola-id="uniqueProductId"
+      data-dola-currency="USD"
+      data-dola-variant-color="red"
+      className="window.Dolapay.id"
+    >
+      Buy Now
+    </button>
+  </div>
+  ```
+
+- `data-dola-cartaction`: This is an optional attribute, it is used to indicate that the element should trigger a Cart action when clicked on. To turn this on, set it to `"true"`. Refer below for an implementation example.
+
+  ```html
+  <div>
+    <button
+      data-dola-totalprice="totalCartTotal"
+      data-dola-totalweight="totalCartWeight"
+      data-dola-currency="MerchantPrimaryCurrency e.g| USD"
+      data-dola-cartaction="true"
+      className="window.Dolapay.id"
+    >
+      Checkout
+    </button>
+  </div>
+  ```
+
+- `data-dola-cart`: This is an optional attribute, it is used to indicate an element that has been listed inside a cart. it is attached to elements in a cart after the `data-dola-cartaction` attribute has been used to trigger a cart action on the submit event. To turn this on, set it to `"true"`.
+
+  ```html
+  <div
+    className="window.Dolapay.id"
+    data-dola-title="currentProductTitle"
+    data-dola-title="productName"
+    data-dola-image="imageURL"
+    data-dola-price="35000"
+    data-dola-weight="3000"
+    data-dola-sku="productsku"
+    data-dola-id="uniqueProductId"
+    data-dola-currency="USD"
+    data-dola-cart="true"
+    data-dola-quantity="2"
+    data-dola-variant-color="red"
+  >
+    Checkout
+  </div>
+  ```
+
+Below are the rest of the supported custom dola data attributes, these attributes are used to describe product/cart details depending on the attached action attribute.
+
+- `data-dola-title`: This is a required attribute, it captures the name of the product.
+- `data-dola-quantity`: This is a required attribute, it captures the quantity of the product being purchased.
+- `data-dola-image`: This is a required attribute, it refers to a the image for the product. It accepts a url.
+- `data-dola-price`: This is a required attribute, it captures the price of the product.
+- `data-dola-weight`: This is a required attribute, it captures the weight of the product. Adjust for the quantity of product being purchased.
+- `data-dola-totalprice`: This is an optional attribute, it captures the total price of cart items, it is only used in a `cartaction` to describe the price total of all products in the cart.
+- `data-dola-totalweight`: This is an optional attribute, it captures the total weight of cart items, it is only used in a `cartaction` to describe the total weight of all products in the cart in grams.
+- `data-dola-id`: This is a required attribute, it refers to the unique id of this product.
+- `data-dola-sku`: This is a required attribute, it refers to your sku for the product.
+- `data-dola-currency`: This is a required attribute, it sets the currency you want payments in.
+- `data-dola-variant-*`: This is an optional attribute, it is used to set variants, where `*` is replaced by the name of the variant.
+
+## Product Types
+
+At the moment, the Buy now supports 2 different types of products, `Simple` and `Complex`.
+
+- `Simple`: This is a product that has no variants. Below is an example of a simple product.
+
+  ```html
+  <div>
+    <button
+      className="{window.Dolapay.id}"
+      data-dola-buynow="true"
+      data-dola-quantity="1"
+      data-dola-title="productName"
+      data-dola-image="imageURL"
+      data-dola-price="35000"
+      data-dola-weight="3000"
+      data-dola-sku="productsku"
+      data-dola-id="uniqueProductId"
+      data-dola-currency="USD"
+    >
+      Buy Now
+    </button>
+  </div>
+  ```
+
+- `Complex`: This refers to a product that has variants. Custom variants can be added with the `data-dola-variant-*` attribute. Below is an example of a complex product.
+
+  ```html
+  <div>
+    <button
+      data-dola-buynow="true"
+      data-dola-quantity="1"
+      data-dola-title="productName"
+      data-dola-image="imageURL"
+      data-dola-price="35000"
+      data-dola-weight="3000"
+      data-dola-sku="productsku"
+      data-dola-id="uniqueProductId"
+      data-dola-currency="USD"
+      data-dola-variant-color="red"
+      className="window.Dolapay.id"
+    >
+      Buy Now
+    </button>
+  </div>
+  ```
+
+  ## Licence
+
+  This project is served with MIT's Open source licence.
