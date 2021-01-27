@@ -44,6 +44,10 @@ export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-99999';
       }
+
+      if (event.data === 'opened-dola') {
+        dolaIframe.style.zIndex = '99999';
+      }
     });
   } catch (error) {
     throw new Error(`error attaching listeners: ${error.toString()}`);
@@ -64,7 +68,6 @@ export const showIframe = (cart: Cart, merchantId: string) => {
           { cart, secret: `dola_${merchantId}` },
           'https://dev.checkout.dola.me' as string
         );
-        iframe.style.zIndex = '99999';
       }
     }, 350);
   } catch (error) {
