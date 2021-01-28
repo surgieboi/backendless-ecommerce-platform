@@ -35,9 +35,9 @@ To get started, reference the documentation below to add BEP to any static site.
 
 1. Login to [Dola](https:dola.me).
 
-2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. make sure that the `websiteURL` field matches the baseURL of your site.
+2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `websiteURL` field matches the baseURL of your site.
 
-3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `HTML Attributes` option. Each option exposes a corresponding script for getting you started for that option. simply copy and paste this script into your app to get started with `Now`.
+3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `HTML Attributes` option. Each option exposes a corresponding script for getting you started for that option. Simply copy and paste this script into your app to get started with `BEP`.
 
 - This guide will help you understand how each option works and how to implement each with Dola.
 
@@ -183,7 +183,7 @@ There are 3 attributes that describe actions. These attributes are not used at t
   </div>
   ```
 
-- `data-dola-cart`: This is an optional attribute, it is used to indicate an element that has been listed inside a cart. it is attached to elements in a cart after the `data-dola-cartaction` attribute has been used to trigger a cart action on the submit event. To turn this on, set it to `"true"`.
+- `data-dola-cart`: This is an optional attribute, it is used to indicate an element that has been listed inside a cart. It is attached to elements in a cart after the `data-dola-cartaction` attribute has been used to trigger a cart action on the submit event. To turn this on, set it to `"true"`.
 
   ```html
   <div
@@ -206,11 +206,11 @@ There are 3 attributes that describe actions. These attributes are not used at t
 
 Below are the rest of the supported custom Dola data attributes, these attributes are used to describe product/cart details depending on the attached action attribute.
 
-| attribute               | information                                                                                                                                                |
+| Attribute               | Description                                                                                                                                                |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `data-dola-title`       | Required. It captures the name of the product.                                                                                                             |
 | `data-dola-quantity`    | Required. It captures the quantity of the product being purchased.                                                                                         |
-| `data-dola-image`       | Required. It refers to a the image for the product. It accepts a url.                                                                                      |
+| `data-dola-image`       | Required. It refers to a the image for the product. It accepts a url string.                                                                               |
 | `data-dola-price`       | Required. It captures the price of the product.                                                                                                            |
 | `data-dola-weight`      | Required. It captures the weight of the product. Adjust for the quantity of product being purchased.                                                       |
 | `data-dola-totalprice`  | Optional. It captures the total price of cart items, it is only used in a `cartaction` to describe the price total of all products in the cart.            |
@@ -274,7 +274,7 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
 - last 2 Edge versions
 - modern browsers
 
-## Contributing section
+## Contribute
 
 If you like the idea behind BEP and want to become a contributor - do not hesitate and check our list of the active issues or contact us directly via bep@dola.me.
 
