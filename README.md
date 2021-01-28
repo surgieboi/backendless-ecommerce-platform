@@ -160,7 +160,7 @@ There are 3 attributes that describe actions. These attributes are not used at t
       data-dola-id="uniqueProductId"
       data-dola-currency="USD"
       data-dola-variant-color="red"
-      className="window.Dolapay.id"
+      class="window.Dolapay.id"
     >
       Buy Now
     </button>
@@ -176,7 +176,7 @@ There are 3 attributes that describe actions. These attributes are not used at t
       data-dola-totalweight="totalCartWeight"
       data-dola-currency="MerchantPrimaryCurrency e.g| USD"
       data-dola-cartaction="true"
-      className="window.Dolapay.id"
+      class="window.Dolapay.id"
     >
       Checkout
     </button>
@@ -187,7 +187,7 @@ There are 3 attributes that describe actions. These attributes are not used at t
 
   ```html
   <div
-    className="window.Dolapay.id"
+    class="window.Dolapay.id"
     data-dola-title="currentProductTitle"
     data-dola-title="productName"
     data-dola-image="imageURL"
@@ -229,7 +229,7 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
   ```html
   <div>
     <button
-      className="{window.Dolapay.id}"
+      class="window.Dolapay.id"
       data-dola-buynow="true"
       data-dola-quantity="1"
       data-dola-title="productName"
@@ -260,7 +260,7 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
       data-dola-id="uniqueProductId"
       data-dola-currency="USD"
       data-dola-variant-color="red"
-      className="window.Dolapay.id"
+      class="window.Dolapay.id"
     >
       Buy Now
     </button>
