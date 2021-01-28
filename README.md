@@ -35,7 +35,7 @@ To get started, reference the documentation below to add BEP to any static site.
 
 1. Login to [Dola](https:dola.me).
 
-2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `websiteURL` field matches the baseURL of your site.
+2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches the baseURL of your site.
 
 3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `HTML Attributes` option. Each option exposes a corresponding script for getting you started for that option. Simply copy and paste this script into your app to get started with `BEP`.
 
