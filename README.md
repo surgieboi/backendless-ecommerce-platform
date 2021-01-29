@@ -30,6 +30,7 @@ To get started, reference the documentation below to add BEP to any static site.
 - Get up and running on your backendless ecommerce platform with just 1 script.
 - Supports all platforms, including no and low code ones too.
 - Retain full creative control of your platform, plug in non-invasive checkout experience allowing your users retain your brand feel.
+- Easily plug in your custom fulfilment solution either via Dola's APIs or [Zapier](https://zapier.com/apps/dola/integrations).
 
 ## Getting Started
 
@@ -37,7 +38,7 @@ To get started, reference the documentation below to add BEP to any static site.
 
 2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches the baseURL of your site.
 
-3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `HTML Attributes` option. Each option exposes a corresponding script for getting you started for that option. Simply copy and paste this script into your app to get started with `BEP`.
+3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `Basic Installation` option. Each option exposes a corresponding script for getting you started for that option. Simply copy and paste this script into your app to get started with `BEP`.
 
 - This guide will help you understand how each option works and how to implement each with Dola.
 
@@ -47,7 +48,7 @@ To get started, reference the documentation below to add BEP to any static site.
 
 ## Setup Options
 
-Dola can be implemented in two different ways, via a `Javascript SDK` option or an `HTML Attributes` approach.
+Dola can be implemented in two different ways, via a `Javascript SDK` option or an `Basic Installation` approach.
 
 ### JavaScript SDK
 
@@ -127,11 +128,11 @@ window.Dolapay:IDolapay
 - `type`: This property refers to the initialization method of the BEP instance.
 
   - `basic`: means the BEP instance was created as a `JavaScript SDK` instance.
-  - `custom`: means the BEP instance was created as an `HTML Attributes` instance.
+  - `custom`: means the BEP instance was created as an `Basic Installation` instance.
 
 - `orderCompleted`: This property exposes the state of the current order.
 
-### HTML Attributes
+### Basic Installation
 
 With the setup option, custom data attributes are used to trigger checkout on the element. Below are supported custom Dola data attributes. All attributes accept strings.
 
@@ -266,6 +267,24 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
     </button>
   </div>
   ```
+
+## Zapier Integration
+
+Depending on your choice of fulfilment partner, you can choose to integrate it with Dola in one of 2 ways, via Dola's order APIs or via Dola's Zapier Integration.
+
+> To get started with setting up this integration, all you'll require is a [Zapier account](https://zapier.com/).
+
+After setting up your account, navigate to [Dola's Zapier Integration page](https://zapier.com/apps/dola/integrations). Here, you can select from Dola's existing workflows or choose to build a custom workflow zap for yourself.
+
+At the moment Dola's Zapier integration includes 1 trigger and 1 action.
+
+### Triggers
+
+`New Order`: This trigger fires when a new order has been created for the merchant. It returns details about newly created order that are necessary to create fulfilment details.
+
+### Actions
+
+`Update Order`: This is an action that is fired to update a specific order's details.
 
 ## Browser Compatibility
 
