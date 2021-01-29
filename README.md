@@ -2,6 +2,25 @@
 
 # Backendless E-commerce Platform
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Setup Options](#setup-options)
+  - [Javascript SDK](#javascript-sdk)
+  - [Basic Installation](#basic-installation)
+- [Product Types](#product-types)
+- [Zapier Integration](#zapier-integration)
+  - [Triggers](#triggers)
+  - [Actions](#actions)
+- [Browser Compatibility](#browser-compatibility)
+- [Contribute](#contribute)
+- [License](#license)
+
+## Overview
+
 BEP is short for “Backendless E-commerce Platform,” and it turns any website into a shop with just one line of code.
 
 The best part?
@@ -270,13 +289,13 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
 
 ## Zapier Integration
 
-Depending on your choice of fulfilment partner, you can choose to integrate it with Dola in one of 2 ways, via Dola's order APIs or via Dola's Zapier Integration.
+In order to automate post-purchase activities such as customer support, fulfillment, marketing, and more, we've integrated Dola with Zapier.
 
 > To get started with setting up this integration, all you'll require is a [Zapier account](https://zapier.com/).
 
 After setting up your account, navigate to [Dola's Zapier Integration page](https://zapier.com/apps/dola/integrations). Here, you can select from Dola's existing workflows or choose to build a custom workflow zap for yourself.
 
-At the moment Dola's Zapier integration includes 1 trigger and 1 action.
+Dola's Zapier integration includes:
 
 ### Triggers
 
