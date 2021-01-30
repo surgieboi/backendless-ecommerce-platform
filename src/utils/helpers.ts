@@ -180,7 +180,7 @@ const composeItemObject = (dataset: { [key: string]: any }): CartItem => {
     image: dataset.dolaImage,
     quantity: parseInt(dataset.dolaQuantity as string, 10) as number,
     title: dataset.dolaTitle,
-    price: parseInt(dataset.dolaPrice as string, 10) as number,
+    price: 100,
     grams: parseInt(dataset.dolaWeight as string, 10) as number,
     sku: dataset.dolaSku,
     variantInfo: [],
