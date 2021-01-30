@@ -18,7 +18,7 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `https://checkout.dola.me/${merchantId}`;
+    dolaIframe.src = `https://dev.checkout.dola.me/${merchantId}`;
     dolaIframe.style.width = '100%';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
@@ -39,7 +39,7 @@ export const createDolaIframe = (merchantId: string) => {
 export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
   try {
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'https://checkout.dola.me') return;
+      if (event.origin !== 'https://dev.checkout.dola.me') return;
 
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-99999';
@@ -66,7 +66,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage(
           { cart, secret: `dola_${merchantId}` },
-          'https://checkout.dola.me' as string
+          'https://dev.checkout.dola.me' as string
         );
       }
     }, 350);
@@ -76,7 +76,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
 };
 
 export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
-  if (event.origin !== 'https://checkout.dola.me') return;
+  if (event.origin !== 'https://dev.checkout.dola.me') return;
 
   const dolaWindowObject = ((window as unknown) as DolaExtendedWindow).Dolapay;
   dolaWindowObject.orderCompleted = true;
@@ -129,8 +129,7 @@ const attachDolaToOne = (dataset: { [key: string]: any }) => {
   try {
     const parsedItem = parseVariantsIntoItem(dataset, composeItemObject(dataset));
     const cartObject: Cart = {
-      // totalPrice: parsedItem.subTotal,
-      totalPrice: 100,
+      totalPrice: parsedItem.subTotal,
       totalWeight: parsedItem.grams * parsedItem.quantity,
       currency: dataset.dolaCurrency,
       items: [parsedItem],
@@ -147,8 +146,7 @@ const attachDolaToCart = (
   const items = parseItems(instances);
 
   const cartObject: Cart = {
-    // totalPrice: parseInt(cartDataset.dolaTotalprice as string, 10) as number,
-    totalPrice: 100,
+    totalPrice: parseInt(cartDataset.dolaTotalprice as string, 10) as number,
     totalWeight: parseInt(cartDataset.dolaTotalweight as string, 10) as number,
     currency: cartDataset.dolaCurrency as string,
     items: items,
@@ -180,11 +178,12 @@ const composeItemObject = (dataset: { [key: string]: any }): CartItem => {
     image: dataset.dolaImage,
     quantity: parseInt(dataset.dolaQuantity as string, 10) as number,
     title: dataset.dolaTitle,
-    price: 100,
+    price: parseInt(dataset.dolaPrice as string, 10) as number,
     grams: parseInt(dataset.dolaWeight as string, 10) as number,
     sku: dataset.dolaSku,
     variantInfo: [],
-    subTotal: 100,
+    subTotal: ((parseInt(dataset.dolaPrice as string, 10) as number) *
+      parseInt(dataset.dolaQuantity as string, 10)) as number,
   };
 
   return item;
