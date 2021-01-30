@@ -184,8 +184,7 @@ const composeItemObject = (dataset: { [key: string]: any }): CartItem => {
     grams: parseInt(dataset.dolaWeight as string, 10) as number,
     sku: dataset.dolaSku,
     variantInfo: [],
-    subTotal: ((parseInt(dataset.dolaPrice as string, 10) as number) *
-      parseInt(dataset.dolaQuantity as string, 10)) as number,
+    subTotal: 100,
   };
 
   return item;
