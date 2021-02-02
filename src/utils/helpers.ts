@@ -102,13 +102,17 @@ export const addListenerToInstances = (id: string) => {
       if (currentInstance.dataset?.dolaCartaction === 'true') {
         currentInstance.id = nanoid();
         currentInstance.addEventListener('click', () => {
-          attachDolaToCart(currentInstance.dataset, buyNowInstances);
+          return attachDolaToCart(currentInstance.dataset, buyNowInstances);
         });
+
+        currentInstance.style.display = 'inline-block';
       } else if (currentInstance.dataset?.dolaBuynow === 'true') {
         currentInstance.id = nanoid();
         currentInstance.addEventListener('click', () => {
           return attachDolaToOne(currentInstance.dataset);
         });
+
+        currentInstance.style.display = 'inline-block';
       }
     }
   } catch (error) {
