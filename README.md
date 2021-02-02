@@ -44,7 +44,6 @@ To get started, reference the documentation below to add BEP to any static site.
 ## Features
 
 - Build and deploy a static site with a full internationalized checkout experience built in.
-
 - Works accross all modern browsers and devices.
 - Get up and running on your backendless ecommerce platform with just 1 script.
 - Supports all platforms, including no and low code ones too.
