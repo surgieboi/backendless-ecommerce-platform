@@ -90,8 +90,6 @@ window.Dolapay:IDolapay
 
   ```ts
   interface Cart {
-    totalPrice: number;
-    totalWeight: number;
     currency: string;
     items: CartItem[];
   }
@@ -122,8 +120,6 @@ window.Dolapay:IDolapay
 
   ```js
   const cart = {
-    totalPrice: 35000,
-    totalWeight: 543,
     currency: 'USD',
     items: [
       {
@@ -191,8 +187,6 @@ There are 3 attributes that describe actions. These attributes are not used at t
   ```html
   <div>
     <button
-      data-dola-totalprice="totalCartTotal"
-      data-dola-totalweight="totalCartWeight"
       data-dola-currency="MerchantPrimaryCurrency e.g| USD"
       data-dola-cartaction="true"
       class="window.Dolapay.id"
