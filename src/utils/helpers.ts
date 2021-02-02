@@ -133,8 +133,6 @@ const attachDolaToOne = (dataset: { [key: string]: any }) => {
   try {
     const parsedItem = parseVariantsIntoItem(dataset, composeItemObject(dataset));
     const cartObject: Cart = {
-      totalPrice: parsedItem.subTotal,
-      totalWeight: parsedItem.grams * parsedItem.quantity,
       currency: dataset.dolaCurrency,
       items: [parsedItem],
     };
@@ -150,8 +148,6 @@ const attachDolaToCart = (
   const items = parseItems(instances);
 
   const cartObject: Cart = {
-    totalPrice: parseInt(cartDataset.dolaTotalprice as string, 10) as number,
-    totalWeight: parseInt(cartDataset.dolaTotalweight as string, 10) as number,
     currency: cartDataset.dolaCurrency as string,
     items: items,
   };

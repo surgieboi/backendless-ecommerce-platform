@@ -1,6 +1,4 @@
 export interface Cart {
-  totalPrice: number;
-  totalWeight: number;
   currency: string;
   items: CartItem[];
 }
