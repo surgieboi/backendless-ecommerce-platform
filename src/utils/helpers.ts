@@ -80,15 +80,10 @@ export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
 
   const dolaWindowObject = ((window as unknown) as DolaExtendedWindow).Dolapay;
   dolaWindowObject.orderCompleted = true;
-  callback();
   if (event.data === 'order-complete') {
+    callback();
     console.log('hureka');
-    return {
-      status: 'success',
-      message: 'successfully placed your order',
-    };
   }
-  throw new Error("couldn't complete order");
 };
 
 export const addListenerToInstances = (id: string) => {
@@ -138,6 +133,11 @@ const attachDolaToOne = (dataset: { [key: string]: any }) => {
     };
 
     showIframe(cartObject, retrieveGlobalObject().id);
+    window.addEventListener('message', (event) =>
+      dolaCheckoutEventHandler(event, () => {
+        // plug in various no code integrations for basic implementation
+      })
+    );
   } catch (error) {}
 };
 
@@ -153,6 +153,12 @@ const attachDolaToCart = (
   };
 
   showIframe(cartObject, retrieveGlobalObject().id);
+
+  window.addEventListener('message', (event) =>
+    dolaCheckoutEventHandler(event, () => {
+      // plug in various no code integrations for basic implementation
+    })
+  );
 };
 
 const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {

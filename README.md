@@ -141,8 +141,8 @@ window.Dolapay:IDolapay
 
 - `type`: This property refers to the initialization method of the BEP instance.
 
-  - `basic`: means the BEP instance was created as a `JavaScript SDK` instance.
-  - `custom`: means the BEP instance was created as an `Basic Installation` instance.
+  - `sdk`: means the BEP instance was created as a `JavaScript SDK` instance.
+  - `basic`: means the BEP instance was created as an `Basic Installation` instance.
 
 - `orderCompleted`: This property exposes the state of the current order.
 
