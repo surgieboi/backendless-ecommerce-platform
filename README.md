@@ -31,7 +31,7 @@ With BEP, you can instantly accept payments from 195 countries, ship globally, g
 
 Whether you're building a direct-to-consumer site, a landing page for your latest drop, or a side hustle with friends and family, BEP does it all.
 
-Also, as orders come in, BEP provides you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an API accessible via API keys and a Zapier app, enabling you to build automations and sync data that's relevant to your business.
+Also, as orders come in, BEP provides you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an API, accessible via API keys and a Zapier app, enabling you to build automations and sync data that's relevant to your business.
 
 For now, BEP is available for merchants in the U.S. and U.K.; but, consumers everywhere can purchase from a BEP store.
 

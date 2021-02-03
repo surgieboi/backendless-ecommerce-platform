@@ -86,10 +86,8 @@ export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
   }
 };
 
-export const addListenerToInstances = (id: string) => {
+export const addListenerToInstances = (buyNowInstances: HTMLCollectionOf<HTMLDivElement>) => {
   try {
-    const buyNowInstances: HTMLCollectionOf<HTMLDivElement> = fetchDolaInstances(id);
-
     for (let index = 0; index < buyNowInstances.length; index++) {
       const currentInstance = buyNowInstances[index];
       if (currentInstance?.id) return;
@@ -115,9 +113,11 @@ export const addListenerToInstances = (id: string) => {
   }
 };
 
-const fetchDolaInstances = (id: string) => {
+export const fetchDolaInstances = () => {
   try {
-    const buyNowInstances = document.getElementsByClassName(id) as HTMLCollectionOf<HTMLDivElement>;
+    const buyNowInstances = document.getElementsByClassName(
+      'dola-dola-bills-yall'
+    ) as HTMLCollectionOf<HTMLDivElement>;
     return buyNowInstances;
   } catch (error) {
     throw new Error(error.toString());
