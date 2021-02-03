@@ -97,16 +97,14 @@ export const addListenerToInstances = (buyNowInstances: HTMLCollectionOf<HTMLDiv
         currentInstance.addEventListener('click', () => {
           return attachDolaToCart(currentInstance.dataset, buyNowInstances);
         });
-
-        currentInstance.style.display = 'inline-block';
       } else if (currentInstance.dataset?.dolaBuynow === 'true') {
         currentInstance.id = nanoid();
         currentInstance.addEventListener('click', () => {
           return attachDolaToOne(currentInstance.dataset);
         });
-
-        currentInstance.style.display = 'inline-block';
       }
+
+      currentInstance.classList.remove('dola-bep-loading');
     }
   } catch (error) {
     throw new Error('error attaching dola action to instance');
