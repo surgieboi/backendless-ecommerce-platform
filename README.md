@@ -169,19 +169,17 @@ Manage orders using Dola's REST API. [View specification](https://docs.dola.me/#
 
 These are the custom data attributes supported by BEP, these attributes are used to describe product/cart details depending on the attached action attribute.
 
-| Attribute               | Description                                                                                                                                                |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data-dola-title`       | Required. It captures the name of the product.                                                                                                             |
-| `data-dola-quantity`    | Required. It captures the quantity of the product being purchased.                                                                                         |
-| `data-dola-image`       | Required. It refers to a the image for the product. It accepts a url string.                                                                               |
-| `data-dola-price`       | Required. It captures the price of the product.                                                                                                            |
-| `data-dola-weight`      | Required. It captures the weight of the product. Adjust for the quantity of product being purchased.                                                       |
-| `data-dola-totalprice`  | Optional. It captures the total price of cart items, it is only used in a `cartaction` to describe the price total of all products in the cart.            |
-| `data-dola-totalweight` | Optional. It captures the total weight of cart items, it is only used in a `cartaction` to describe the total weight of all products in the cart in grams. |
-| `data-dola-id`          | Required. It refers to the unique id of this product.                                                                                                      |
-| `data-dola-sku`         | Required. It refers to your sku for the product.                                                                                                           |
-| `data-dola-currency`    | Required. It sets the currency you want payments in.                                                                                                       |
-| `data-dola-variant-*`   | Optional. It is used to set variants, where `*` is replaced by the name of the variant.                                                                    |
+| Attribute             | Description                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| `data-dola-title`     | Required. It captures the name of the product.                                                       |
+| `data-dola-quantity`  | Required. It captures the quantity of the product being purchased.                                   |
+| `data-dola-image`     | Required. It refers to a the image for the product. It accepts a url string.                         |
+| `data-dola-price`     | Required. It captures the price of the product.                                                      |
+| `data-dola-weight`    | Required. It captures the weight of the product. Adjust for the quantity of product being purchased. |
+| `data-dola-id`        | Required. It refers to the unique id of this product.                                                |
+| `data-dola-sku`       | Required. It refers to your sku for the product.                                                     |
+| `data-dola-currency`  | Required. It sets the currency you want payments in.                                                 |
+| `data-dola-variant-*` | Optional. It is used to set variants, where `*` is replaced by the name of the variant.              |
 
 There is support for `Simple` and `Complex` type products.
 

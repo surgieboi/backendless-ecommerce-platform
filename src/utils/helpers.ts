@@ -1,5 +1,13 @@
 import { nanoid } from 'nanoid';
-import { Cart, CartItem, IframeExtended, DolaExtendedWindow, IDola, VariantInfo } from '../types';
+import {
+  Cart,
+  CartItem,
+  IframeExtended,
+  DolaExtendedWindow,
+  IDola,
+  VariantInfo,
+  IDataset,
+} from '../types';
 import { isNil } from './typeCheck';
 
 export const retrieveGlobalObject = (): IDola =>
@@ -121,11 +129,11 @@ export const fetchDolaInstances = () => {
   }
 };
 
-const attachDolaToOne = (dataset: { [key: string]: any }) => {
+const attachDolaToOne = (dataset: IDataset) => {
   try {
     const parsedItem = parseVariantsIntoItem(dataset, composeItemObject(dataset));
     const cartObject: Cart = {
-      currency: dataset.dolaCurrency,
+      currency: validateField(dataset.dolaCurrency, 'Invalid currency'),
       items: [parsedItem],
     };
 
@@ -135,27 +143,30 @@ const attachDolaToOne = (dataset: { [key: string]: any }) => {
         // plug in various no code integrations for basic implementation
       })
     );
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error attaching Dola to product: ', error.toString());
+  }
 };
 
-const attachDolaToCart = (
-  cartDataset: { [key: string]: any },
-  instances: HTMLCollectionOf<HTMLDivElement>
-) => {
-  const items = parseItems(instances);
+const attachDolaToCart = (cartDataset: IDataset, instances: HTMLCollectionOf<HTMLDivElement>) => {
+  try {
+    const items = parseItems(instances);
 
-  const cartObject: Cart = {
-    currency: cartDataset.dolaCurrency as string,
-    items: items,
-  };
+    const cartObject: Cart = {
+      currency: cartDataset.dolaCurrency as string,
+      items: items,
+    };
 
-  showIframe(cartObject, retrieveGlobalObject().id);
+    showIframe(cartObject, retrieveGlobalObject().id);
 
-  window.addEventListener('message', (event) =>
-    dolaCheckoutEventHandler(event, () => {
-      // plug in various no code integrations for basic implementation
-    })
-  );
+    window.addEventListener('message', (event) =>
+      dolaCheckoutEventHandler(event, () => {
+        // plug in various no code integrations for basic implementation
+      })
+    );
+  } catch (error) {
+    console.error('Error attaching Dola to cart: ', error.toString());
+  }
 };
 
 const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {
@@ -175,24 +186,34 @@ const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {
   return rawCartDatasets;
 };
 
-const composeItemObject = (dataset: { [key: string]: any }): CartItem => {
+const validateField = (field: string | undefined, error: string) => {
+  try {
+  } catch (error) {}
+  if (isNil(field)) throw new Error(error);
+  else {
+    return field;
+  }
+};
+
+const composeItemObject = (dataset: IDataset): CartItem => {
   const item: CartItem = {
-    id: dataset.dolaId,
-    image: dataset.dolaImage,
-    quantity: parseInt(dataset.dolaQuantity as string, 10) as number,
-    title: dataset.dolaTitle,
-    price: parseInt(dataset.dolaPrice as string, 10) as number,
-    grams: parseInt(dataset.dolaWeight as string, 10) as number,
-    sku: dataset.dolaSku,
+    id: validateField(dataset.dolaId, 'Invalid product Id'),
+    image: validateField(dataset.dolaImage, 'Invalid product Image'),
+    quantity: parseInt(validateField(dataset.dolaQuantity, 'Invalid quantity'), 10),
+    title: validateField(dataset.dolaTitle, 'Invalid title'),
+    price: parseInt(validateField(dataset.dolaPrice, 'Invalid price'), 10),
+    grams: parseInt(validateField(dataset.dolaWeight, 'Invalid weight'), 10),
+    sku: validateField(dataset.dolaSku, 'Invalid sku'),
     variantInfo: [],
-    subTotal: ((parseInt(dataset.dolaPrice as string, 10) as number) *
-      parseInt(dataset.dolaQuantity as string, 10)) as number,
+    subTotal:
+      parseInt(validateField(dataset.dolaPrice, 'Invalid price'), 10) *
+      parseInt(validateField(dataset.dolaQuantity, 'Invalid quantity'), 10),
   };
 
   return item;
 };
 
-const parseVariantsIntoItem = (dataset: { [key: string]: any }, item: CartItem) => {
+const parseVariantsIntoItem = (dataset: IDataset, item: CartItem) => {
   const variantPrefix = 'dolaVariant';
   const variants = Object.keys(dataset)
     .filter((e) => e.includes(variantPrefix))

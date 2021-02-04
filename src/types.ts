@@ -33,5 +33,9 @@ export interface IDola {
 }
 
 export interface DolaExtendedWindow extends Window {
-  Dolapay: any;
+  Dolapay: IDola;
+}
+
+export interface IDataset {
+  [key: string]: string | undefined;
 }

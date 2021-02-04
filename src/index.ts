@@ -28,11 +28,12 @@ const Dola = (() => {
         let dolaWindowObject = retrieveGlobalObject();
         if (isNil(dolaWindowObject.id)) throw new Error('invalid merchant id');
 
+        const refWindowsObj = (window as unknown) as DolaExtendedWindow;
+        refWindowsObj.Dolapay.orderCompleted = false;
         attachDolaEventListeners(loadIframe(dolaWindowObject.id));
-        ((window as unknown) as DolaExtendedWindow).Dolapay.orderCompleted = false;
 
         if (dolaWindowObject.type === 'sdk') {
-          ((window as unknown) as DolaExtendedWindow).Dolapay.attachDola = attachDola;
+          refWindowsObj.Dolapay.attachDola = attachDola;
         } else if (dolaWindowObject.type === 'basic') {
           setInterval(() => addListenerToInstances(fetchDolaInstances()), 1000);
         } else {
