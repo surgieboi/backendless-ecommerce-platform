@@ -38,7 +38,7 @@ For now, BEP is available for merchants in the U.S. and U.K.; but, consumers eve
 
 To get started, reference the documentation below to add BEP to any static site.
 
-[Demo Site](https://buy-now-examples.vercel.app/)
+[Demo Site](https://bep-example.dola.me/)
 
 ## Getting Started
 
