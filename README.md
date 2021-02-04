@@ -113,6 +113,8 @@ When set to `"true"`, the element, when clicked, will trigger a checkout with al
 
 Only 1 action type should be used on an element at a given time.
 
+While BEP is loading, `dola-bep-loading` is added as a class to actionable HTML elements. This can be leveraged to implement styles and other behavior for the loading state.
+
 ### JavaScript SDK
 
 Here's a basic example:
