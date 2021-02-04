@@ -82,7 +82,6 @@ export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
   dolaWindowObject.orderCompleted = true;
   if (event.data === 'order-complete') {
     callback();
-    console.log('hureka');
   }
 };
 
