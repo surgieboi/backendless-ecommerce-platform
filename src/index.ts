@@ -6,6 +6,7 @@ import {
   dolaCheckoutEventHandler,
   addListenerToInstances,
   retrieveGlobalObject,
+  fetchDolaInstances,
 } from './utils/helpers';
 import { isNil } from './utils/typeCheck';
 
@@ -30,10 +31,10 @@ const Dola = (() => {
         attachDolaEventListeners(loadIframe(dolaWindowObject.id));
         ((window as unknown) as DolaExtendedWindow).Dolapay.orderCompleted = false;
 
-        if (dolaWindowObject.type === 'basic') {
+        if (dolaWindowObject.type === 'sdk') {
           ((window as unknown) as DolaExtendedWindow).Dolapay.attachDola = attachDola;
-        } else if (dolaWindowObject.type === 'custom') {
-          setInterval(() => addListenerToInstances(dolaWindowObject.id), 1000);
+        } else if (dolaWindowObject.type === 'basic') {
+          setInterval(() => addListenerToInstances(fetchDolaInstances()), 1000);
         } else {
           throw new Error('invalid buy now implementation type');
         }

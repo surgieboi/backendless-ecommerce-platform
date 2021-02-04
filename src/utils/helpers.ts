@@ -80,21 +80,14 @@ export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
 
   const dolaWindowObject = ((window as unknown) as DolaExtendedWindow).Dolapay;
   dolaWindowObject.orderCompleted = true;
-  callback();
   if (event.data === 'order-complete') {
+    callback();
     console.log('hureka');
-    return {
-      status: 'success',
-      message: 'successfully placed your order',
-    };
   }
-  throw new Error("couldn't complete order");
 };
 
-export const addListenerToInstances = (id: string) => {
+export const addListenerToInstances = (buyNowInstances: HTMLCollectionOf<HTMLDivElement>) => {
   try {
-    const buyNowInstances: HTMLCollectionOf<HTMLDivElement> = fetchDolaInstances(id);
-
     for (let index = 0; index < buyNowInstances.length; index++) {
       const currentInstance = buyNowInstances[index];
       if (currentInstance?.id) return;
@@ -102,7 +95,7 @@ export const addListenerToInstances = (id: string) => {
       if (currentInstance.dataset?.dolaCartaction === 'true') {
         currentInstance.id = nanoid();
         currentInstance.addEventListener('click', () => {
-          attachDolaToCart(currentInstance.dataset, buyNowInstances);
+          return attachDolaToCart(currentInstance.dataset, buyNowInstances);
         });
       } else if (currentInstance.dataset?.dolaBuynow === 'true') {
         currentInstance.id = nanoid();
@@ -110,15 +103,19 @@ export const addListenerToInstances = (id: string) => {
           return attachDolaToOne(currentInstance.dataset);
         });
       }
+
+      currentInstance.classList.remove('dola-bep-loading');
     }
   } catch (error) {
     throw new Error('error attaching dola action to instance');
   }
 };
 
-const fetchDolaInstances = (id: string) => {
+export const fetchDolaInstances = () => {
   try {
-    const buyNowInstances = document.getElementsByClassName(id) as HTMLCollectionOf<HTMLDivElement>;
+    const buyNowInstances = document.getElementsByClassName(
+      'dola-dola-bills-yall'
+    ) as HTMLCollectionOf<HTMLDivElement>;
     return buyNowInstances;
   } catch (error) {
     throw new Error(error.toString());
@@ -129,13 +126,16 @@ const attachDolaToOne = (dataset: { [key: string]: any }) => {
   try {
     const parsedItem = parseVariantsIntoItem(dataset, composeItemObject(dataset));
     const cartObject: Cart = {
-      totalPrice: parsedItem.subTotal,
-      totalWeight: parsedItem.grams * parsedItem.quantity,
       currency: dataset.dolaCurrency,
       items: [parsedItem],
     };
 
     showIframe(cartObject, retrieveGlobalObject().id);
+    window.addEventListener('message', (event) =>
+      dolaCheckoutEventHandler(event, () => {
+        // plug in various no code integrations for basic implementation
+      })
+    );
   } catch (error) {}
 };
 
@@ -146,13 +146,17 @@ const attachDolaToCart = (
   const items = parseItems(instances);
 
   const cartObject: Cart = {
-    totalPrice: parseInt(cartDataset.dolaTotalprice as string, 10) as number,
-    totalWeight: parseInt(cartDataset.dolaTotalweight as string, 10) as number,
     currency: cartDataset.dolaCurrency as string,
     items: items,
   };
 
   showIframe(cartObject, retrieveGlobalObject().id);
+
+  window.addEventListener('message', (event) =>
+    dolaCheckoutEventHandler(event, () => {
+      // plug in various no code integrations for basic implementation
+    })
+  );
 };
 
 const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {
