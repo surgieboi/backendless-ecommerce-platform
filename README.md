@@ -5,16 +5,17 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
 - [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Setup Options](#setup-options)
+- [Setup](#setup)
   - [Javascript SDK](#javascript-sdk)
   - [Basic Installation](#basic-installation)
-- [Product Types](#product-types)
+    - [data-dola-buynow](#data-dola-buynow)
+    - [data-dola-cart](#data-dola-cart)
+    - [data-dola-cartaction](#data-dola-cartaction)
 - [Zapier Integration](#zapier-integration)
   - [Triggers](#triggers)
   - [Actions](#actions)
+- [Reference](#reference)
 - [Browser Compatibility](#browser-compatibility)
 - [Contribute](#contribute)
 - [License](#license)
@@ -39,169 +40,29 @@ To get started, reference the documentation below to add BEP to any static site.
 
 [Demo Site](https://buy-now-examples.vercel.app/)
 
-![BEP Demo site](images/BEP.png)
-
-## Features
-
-- Build and deploy a static site with a full internationalized checkout experience built in.
-- Works accross all modern browsers and devices.
-- Get up and running on your backendless ecommerce platform with just 1 script.
-- Supports all platforms, including no and low code ones too.
-- Retain full creative control of your platform, plug in non-invasive checkout experience allowing your users retain your brand feel.
-- Easily plug in your custom fulfilment solution either via Dola's APIs or [Zapier](https://zapier.com/apps/dola/integrations).
-
 ## Getting Started
 
-1. Login to [Dola](https:dola.me).
+1. Login to [Dola](https://dola.me).
 
-2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches the baseURL of your site.
+2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches your website.
 
-3. When selecting how to get set up, Depending on your use case, you can select the `Javascript SDK` option or the `Basic Installation` option. Each option exposes a corresponding script for getting you started for that option. Simply copy and paste this script into your app to get started with `BEP`.
+3. When setting up, depending on your use case, you can select the `Basic Installation` or `Javascript SDK` option. Paste the copied snippet in the `<head>` section of your base html file.
 
-- This guide will help you understand how each option works and how to implement each with Dola.
-
-## Installation
-
-> Paste the copied script snippet for your preferred setup option in to the `<head>` section of your base html file.
-
-## Setup Options
-
-Dola can be implemented in two different ways, via a `Javascript SDK` option or an `Basic Installation` approach.
-
-### JavaScript SDK
-
-The script snippet initialises Dola and attaches a global `Dolapay` object to the global `Window` object. The global Dolapay object can be accessed like this `window.Dolapay`.
-
-```ts
-interface IDolapay {
-  id: string;
-  attachDola?: (cart: Cart, callback: () => void) => void;
-  type?: string;
-  orderCompleted: boolean;
-}
-
-
-window.Dolapay:IDolapay
-```
-
-- `id`: This property refers to your `merchantId` it is included in the script snippet copied from the developers section of your profile settings.
-
-- `attachDola`: This method triggers an instance of Dola's 1-Click Checkout. It accepts a `cart` object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's One click checkout.
-
-  ```ts
-  interface Cart {
-    currency: string;
-    items: CartItem[];
-  }
-
-  interface CartItem {
-    id: string;
-    image: string;
-    quantity: number;
-    title: string;
-    price: number;
-    grams: number;
-    variantInfo?: VariantInfo[];
-    sku?: string;
-    subTotal: number;
-  }
-
-  interface VariantInfo {
-    id: string;
-    name: string;
-    value: string;
-  }
-
-
-  window.Dolapay.attachDola:(cart: Cart, callback: () => void): void
-  ```
-
-  Below is a sample implementation of the `attachDola` method.
-
-  ```js
-  const cart = {
-    currency: 'USD',
-    items: [
-      {
-        id: 'randomId',
-        image: 'https://linkToproductimage',
-        quantity: 1,
-        title: 'sample product',
-        price: 35000,
-        grams: 543,
-        sku: 'randomproductsku',
-        subTotal: 35000,
-        variantInfo: [{ id: 'uniqueIDForVariant', name: 'color', valur: 'green' }],
-      },
-    ],
-  };
-
-  window.Dolapay.attachDola(cart);
-  ```
-
-- `type`: This property refers to the initialization method of the BEP instance.
-
-  - `sdk`: means the BEP instance was created as a `JavaScript SDK` instance.
-  - `basic`: means the BEP instance was created as an `Basic Installation` instance.
-
-- `orderCompleted`: This property exposes the state of the current order.
+## Setup
 
 ### Basic Installation
 
-With the setup option, custom data attributes are used to trigger checkout on the element. Below are supported custom Dola data attributes. All attributes accept strings.
+There are 3 HTML data attributes that trigger actions. Each action attribute is used alongside other attributes that describe the product/cart details.
 
-These elements can be grouped into different categories based on their functions. There are attributes that describe the kind of action to be triggered on that element and there are other attributes that describe details of the product or the cart.
+#### `data-dola-buynow`
 
-But before attributes are set, append the `merchantId` from the global Dolapay object as a class on the element.
+When set to `"true"`, the element, when clicked, will trigger a checkout with the product information on that element.
 
-```tsx
-className={window.Dolapay.id}
-```
-
-There are 3 attributes that describe actions. These attributes are not used at the same time, only 1 action can be trigerred on an element. Each action is used alongside other attributes that describe the product/cart details.
-
-- `data-dola-buynow`: This is an optional attribute, it is used to indicate that the element should trigger an immediate checkout when clicked on. To turn this on, set it to `"true"`.
-
-  ```html
-  <div>
-    <button
-      data-dola-buynow="true"
-      data-dola-quantity="1"
-      data-dola-title="productName"
-      data-dola-image="imageURL"
-      data-dola-price="35000"
-      data-dola-weight="3000"
-      data-dola-sku="productsku"
-      data-dola-id="uniqueProductId"
-      data-dola-currency="USD"
-      data-dola-variant-color="red"
-      class="window.Dolapay.id"
-    >
-      Buy Now
-    </button>
-  </div>
-  ```
-
-- `data-dola-cartaction`: This is an optional attribute, it is used to indicate that the element should trigger a Cart action when clicked on. To turn this on, set it to `"true"`. Refer below for an implementation example.
-
-  ```html
-  <div>
-    <button
-      data-dola-currency="MerchantPrimaryCurrency e.g| USD"
-      data-dola-cartaction="true"
-      class="window.Dolapay.id"
-    >
-      Checkout
-    </button>
-  </div>
-  ```
-
-- `data-dola-cart`: This is an optional attribute, it is used to indicate an element that has been listed inside a cart. It is attached to elements in a cart after the `data-dola-cartaction` attribute has been used to trigger a cart action on the submit event. To turn this on, set it to `"true"`.
-
-  ```html
-  <div
-    class="window.Dolapay.id"
-    data-dola-title="currentProductTitle"
+```html
+<div>
+  <button
+    data-dola-buynow="true"
+    data-dola-quantity="1"
     data-dola-title="productName"
     data-dola-image="imageURL"
     data-dola-price="35000"
@@ -209,15 +70,100 @@ There are 3 attributes that describe actions. These attributes are not used at t
     data-dola-sku="productsku"
     data-dola-id="uniqueProductId"
     data-dola-currency="USD"
-    data-dola-cart="true"
-    data-dola-quantity="2"
-    data-dola-variant-color="red"
+    class="dola-dola-bills-yall"
   >
-    Checkout
-  </div>
-  ```
+    Buy Now
+  </button>
+</div>
+```
 
-Below are the rest of the supported custom Dola data attributes, these attributes are used to describe product/cart details depending on the attached action attribute.
+#### `data-dola-cart`
+
+When set to `"true"`, this indicates that the product (represented by the other data attributes on that element) has been added to a shopping cart.
+
+```html
+<div
+  class="dola-dola-bills-yall"
+  data-dola-title="currentProductTitle"
+  data-dola-title="productName"
+  data-dola-image="imageURL"
+  data-dola-price="35000"
+  data-dola-weight="3000"
+  data-dola-sku="productsku"
+  data-dola-id="uniqueProductId"
+  data-dola-currency="USD"
+  data-dola-cart="true"
+  data-dola-quantity="2"
+>
+  Checkout
+</div>
+```
+
+#### `data-dola-cartaction`
+
+When set to `"true"`, the element, when clicked, will trigger a checkout with all products that have been added to the cart (by having their `data-dola-cart` attribute set to `"true"`).
+
+```html
+<div>
+  <button data-dola-currency="USD" data-dola-cartaction="true" class="dola-dola-bills-yall">
+    Checkout
+  </button>
+</div>
+```
+
+Only 1 action type should be used on an element at a given time.
+
+While BEP is loading, `dola-bep-loading` is added as a class to actionable HTML elements. This can be leveraged to implement styles and other behavior for the loading state.
+
+### JavaScript SDK
+
+Here's a basic example:
+
+```js
+const cart = {
+  currency: 'USD',
+  items: [
+    {
+      id: 'randomId',
+      image: 'https://linkToproductimage',
+      quantity: 1,
+      title: 'sample product',
+      price: 35000,
+      grams: 543,
+      sku: 'randomproductsku',
+      subTotal: 35000,
+    },
+  ],
+};
+
+window.Dolapay.attachDola(cart, cb);
+```
+
+The `attachDola` method triggers an instance of Dola's 1-click Checkout. It accepts a cart object and a callback which fires in the case of a successful execution. Note, errors are handled by Dola.
+
+## Zapier Integration
+
+In order to automate post-purchase activities such as customer support, fulfillment, marketing, and more, we've integrated Dola with Zapier.
+
+> To get started with setting up this integration, all you'll require is a [Zapier account](https://zapier.com/).
+
+After setting up your account, navigate to [Dola's Zapier Integration page](https://zapier.com/apps/dola/integrations). Here, you can select from Dola's existing workflows or choose to build a custom workflow zap for yourself.
+
+Dola's Zapier integration includes:
+
+### Triggers
+
+`New Order`: This trigger fires when a new order has been created for the merchant. It returns details about newly created order that are necessary to create fulfilment details.
+
+### Actions
+
+`Update Order`: This is an action that is fired to update a specific order's details.
+
+## Reference
+
+### Basic Installation
+
+These are the custom data attributes supported by BEP, these attributes are used to describe product/cart details depending on the attached action attribute.
 
 | Attribute               | Description                                                                                                                                                |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -233,9 +179,7 @@ Below are the rest of the supported custom Dola data attributes, these attribute
 | `data-dola-currency`    | Required. It sets the currency you want payments in.                                                                                                       |
 | `data-dola-variant-*`   | Optional. It is used to set variants, where `*` is replaced by the name of the variant.                                                                    |
 
-## Product Types
-
-At the moment, BEP supports 2 different types of products, `Simple` and `Complex`.
+There is support for `Simple` and `Complex` type products.
 
 - `Simple`: This is a product that has no variants. Below is an example of a simple product.
 
@@ -280,23 +224,57 @@ At the moment, BEP supports 2 different types of products, `Simple` and `Complex
   </div>
   ```
 
-## Zapier Integration
+### JavaScript SDK
 
-In order to automate post-purchase activities such as customer support, fulfillment, marketing, and more, we've integrated Dola with Zapier.
+The script snippet initialises Dola and attaches a global `Dolapay` object to the global `Window` object. The global Dolapay object can be accessed via `window.Dolapay`.
 
-> To get started with setting up this integration, all you'll require is a [Zapier account](https://zapier.com/).
+```ts
+interface IDolapay {
+  id: string;
+  attachDola?: (cart: Cart, callback: () => void) => void;
+  type?: string;
+  orderCompleted: boolean;
+}
 
-After setting up your account, navigate to [Dola's Zapier Integration page](https://zapier.com/apps/dola/integrations). Here, you can select from Dola's existing workflows or choose to build a custom workflow zap for yourself.
 
-Dola's Zapier integration includes:
+window.Dolapay:IDolapay
+```
 
-### Triggers
+- `type`: This property refers to the initialization method of the BEP instance.
 
-`New Order`: This trigger fires when a new order has been created for the merchant. It returns details about newly created order that are necessary to create fulfilment details.
+  - `basic`: means the BEP instance was created as a `JavaScript SDK` instance.
+  - `custom`: means the BEP instance was created as an `Basic Installation` instance.
 
-### Actions
+- `orderCompleted`: This property exposes the state of the current order.
 
-`Update Order`: This is an action that is fired to update a specific order's details.
+- `id`: This property refers to your `merchantId` it is included in the script snippet copied from the developers section of your profile settings.
+
+- `attachDola`: This method triggers an instance of Dola's 1-click Checkout. It accepts a `Cart` object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's 1-click Checkout.
+
+  ```ts
+  interface Cart {
+    currency: string;
+    items: CartItem[];
+  }
+
+  interface CartItem {
+    id: string;
+    image: string;
+    quantity: number;
+    title: string;
+    price: number;
+    grams: number;
+    variantInfo?: VariantInfo[];
+    sku?: string;
+    subTotal: number;
+  }
+
+  interface VariantInfo {
+    id: string;
+    name: string;
+    value: string;
+  }
+  ```
 
 ## Browser Compatibility
 
@@ -311,6 +289,6 @@ If you like the idea behind BEP and want to become a contributor - do not hesita
 
 If you have discovered a :ant: or have a feature suggestion, feel free to create an issue on Github.
 
-## Licence
+## License
 
 BEP source code is completely free and released under the [MIT License](LICENSE).
