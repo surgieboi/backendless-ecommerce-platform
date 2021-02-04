@@ -6,9 +6,12 @@
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
-- [Setup Options](#setup-options)
+- [Setup](#setup)
   - [Javascript SDK](#javascript-sdk)
   - [Basic Installation](#basic-installation)
+    - [data-dola-buynow](#data-dola-buynow)
+    - [data-dola-cart](#data-dola-cart)
+    - [data-dola-cartaction](#data-dola-cartaction)
 - [Zapier Integration](#zapier-integration)
   - [Triggers](#triggers)
   - [Actions](#actions)
@@ -37,7 +40,6 @@ To get started, reference the documentation below to add BEP to any static site.
 
 [Demo Site](https://buy-now-examples.vercel.app/)
 
-
 ## Getting Started
 
 1. Login to [Dola](https://dola.me).
@@ -46,39 +48,21 @@ To get started, reference the documentation below to add BEP to any static site.
 
 3. When setting up, depending on your use case, you can select the `Basic Installation` or `Javascript SDK` option. Paste the copied snippet in the `<head>` section of your base html file.
 
-## Setup Options
+## Setup
 
 ### Basic Installation
+
 There are 3 HTML data attributes that trigger actions. Each action attribute is used alongside other attributes that describe the product/cart details.
 
-- `data-dola-buynow`: When set to `"true"`, the element, when clicked, will trigger a checkout with the product information on that element.
+#### `data-dola-buynow`
 
-  ```html
-  <div>
-    <button
-      data-dola-buynow="true"
-      data-dola-quantity="1"
-      data-dola-title="productName"
-      data-dola-image="imageURL"
-      data-dola-price="35000"
-      data-dola-weight="3000"
-      data-dola-sku="productsku"
-      data-dola-id="uniqueProductId"
-      data-dola-currency="USD"
-      class="dola-dola-bills-yall"
-    >
-      Buy Now
-    </button>
-  </div>
-  ```
+When set to `"true"`, the element, when clicked, will trigger a checkout with the product information on that element.
 
-
-- `data-dola-cart`: When set to `"true"`, this indicates that the product (represented by the other data attributes on that element) has been added to a shopping cart.
-
-  ```html
-  <div
-    class="dola-dola-bills-yall"
-    data-dola-title="currentProductTitle"
+```html
+<div>
+  <button
+    data-dola-buynow="true"
+    data-dola-quantity="1"
     data-dola-title="productName"
     data-dola-image="imageURL"
     data-dola-price="35000"
@@ -86,56 +70,74 @@ There are 3 HTML data attributes that trigger actions. Each action attribute is 
     data-dola-sku="productsku"
     data-dola-id="uniqueProductId"
     data-dola-currency="USD"
-    data-dola-cart="true"
-    data-dola-quantity="2"
+    class="dola-dola-bills-yall"
   >
+    Buy Now
+  </button>
+</div>
+```
+
+#### `data-dola-cart`
+
+When set to `"true"`, this indicates that the product (represented by the other data attributes on that element) has been added to a shopping cart.
+
+```html
+<div
+  class="dola-dola-bills-yall"
+  data-dola-title="currentProductTitle"
+  data-dola-title="productName"
+  data-dola-image="imageURL"
+  data-dola-price="35000"
+  data-dola-weight="3000"
+  data-dola-sku="productsku"
+  data-dola-id="uniqueProductId"
+  data-dola-currency="USD"
+  data-dola-cart="true"
+  data-dola-quantity="2"
+>
+  Checkout
+</div>
+```
+
+#### `data-dola-cartaction`
+
+When set to `"true"`, the element, when clicked, will trigger a checkout with all products that have been added to the cart (by having their `data-dola-cart` attribute set to `"true"`).
+
+```html
+<div>
+  <button data-dola-currency="USD" data-dola-cartaction="true" class="dola-dola-bills-yall">
     Checkout
-  </div>
-  ```
+  </button>
+</div>
+```
 
-
-- `data-dola-cartaction`: When set to `"true"`, the element, when clicked, will trigger a checkout with all products that have been added to the cart (by having their `data-dola-cart` attribute to `"true"`).
-
-  ```html
-  <div>
-    <button
-      data-dola-currency="USD"
-      data-dola-cartaction="true"
-      class="dola-dola-bills-yall"
-    >
-      Checkout
-    </button>
-  </div>
-  ```
-
-  Only 1 action type should be used on an element at a given time.
-
-
+Only 1 action type should be used on an element at a given time.
 
 ### JavaScript SDK
-  Here's a basic example:
 
-  ```js
-  const cart = {
-    currency: 'USD',
-    items: [
-      {
-        id: 'randomId',
-        image: 'https://linkToproductimage',
-        quantity: 1,
-        title: 'sample product',
-        price: 35000,
-        grams: 543,
-        sku: 'randomproductsku',
-        subTotal: 35000,
-      },
-    ],
-  };
+Here's a basic example:
 
-  window.Dolapay.attachDola(cart);
-  ```
+```js
+const cart = {
+  currency: 'USD',
+  items: [
+    {
+      id: 'randomId',
+      image: 'https://linkToproductimage',
+      quantity: 1,
+      title: 'sample product',
+      price: 35000,
+      grams: 543,
+      sku: 'randomproductsku',
+      subTotal: 35000,
+    },
+  ],
+};
 
-  The `attachDola` method triggers an instance of Dola's 1-Click Checkout. It accepts a cart object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's One click checkout.
+window.Dolapay.attachDola(cart, cb);
+```
+
+The `attachDola` method triggers an instance of Dola's 1-click Checkout. It accepts a cart object and a callback which fires in the case of a successful execution. Note, errors are handled by Dola.
 
 ## Zapier Integration
 
@@ -155,11 +157,9 @@ Dola's Zapier integration includes:
 
 `Update Order`: This is an action that is fired to update a specific order's details.
 
-
 ## Reference
 
 ### Basic Installation
-
 
 These are the custom data attributes supported by BEP, these attributes are used to describe product/cart details depending on the attached action attribute.
 
@@ -245,11 +245,9 @@ window.Dolapay:IDolapay
 
 - `orderCompleted`: This property exposes the state of the current order.
 
-
 - `id`: This property refers to your `merchantId` it is included in the script snippet copied from the developers section of your profile settings.
 
-- `attachDola`: This method triggers an instance of Dola's 1-Click Checkout. It accepts a `Cart` object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's One click checkout.
-
+- `attachDola`: This method triggers an instance of Dola's 1-click Checkout. It accepts a `Cart` object and a callback which fires in the case of a successful execution. Errors are visually handled by Dola's 1-click Checkout.
 
   ```ts
   interface Cart {
