@@ -176,6 +176,7 @@ const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {
         currentInstance.dataset,
         composeItemObject(currentInstance.dataset)
       );
+
       rawCartDatasets.push(parsedItem);
     }
   }
