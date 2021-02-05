@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "parcel src/index.ts",
+    "preinstall": "npx npm-force-resolutions",
     "build": "npm run lint && parcel build src/index.ts",
     "lint": "tsc --noEmit",
     "size": "size-limit",
@@ -29,6 +30,9 @@
   },
   "dependencies": {
     "nanoid": "^3.1.20"
+  },
+  "resolutions": {
+    "node-forge": "0.10.0"
   },
   "peerDependencies": {},
   "prettier": {
