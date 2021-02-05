@@ -5,7 +5,7 @@ import {
   attachDolaEventListeners,
   dolaCheckoutEventHandler,
   addListenerToInstances,
-  retrieveGlobalObject,
+  Dolapay,
   fetchDolaInstances,
 } from './utils/helpers';
 import { isNil } from './utils/typeCheck';
@@ -13,8 +13,7 @@ import { isNil } from './utils/typeCheck';
 const Dola = (() => {
   const attachDola = (cart: Cart, callback: () => void) => {
     try {
-      const dolaWindowObject = retrieveGlobalObject();
-      showIframe(cart, dolaWindowObject.id);
+      showIframe(cart, Dolapay.id);
 
       window.addEventListener('message', (event) => dolaCheckoutEventHandler(event, callback));
     } catch (error) {
@@ -25,16 +24,14 @@ const Dola = (() => {
   return {
     initialize: () => {
       try {
-        let dolaWindowObject = retrieveGlobalObject();
-        if (isNil(dolaWindowObject.id)) throw new Error('invalid merchant id');
+        if (isNil(Dolapay.id)) throw new Error('invalid merchant id');
 
-        const refWindowsObj = (window as unknown) as DolaExtendedWindow;
-        refWindowsObj.Dolapay.orderCompleted = false;
-        attachDolaEventListeners(loadIframe(dolaWindowObject.id));
+        Dolapay.orderCompleted = false;
+        attachDolaEventListeners(loadIframe(Dolapay.id));
 
-        if (dolaWindowObject.type === 'sdk') {
-          refWindowsObj.Dolapay.attachDola = attachDola;
-        } else if (dolaWindowObject.type === 'basic') {
+        if (Dolapay.type === 'sdk') {
+          Dolapay.attachDola = attachDola;
+        } else if (Dolapay.type === 'basic') {
           setInterval(() => addListenerToInstances(fetchDolaInstances()), 1000);
         } else {
           throw new Error('invalid buy now implementation type');

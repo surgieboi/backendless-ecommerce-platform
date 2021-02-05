@@ -10,8 +10,7 @@ import {
 } from '../types';
 import { isNil } from './typeCheck';
 
-export const retrieveGlobalObject = (): IDola =>
-  ((window as unknown) as DolaExtendedWindow).Dolapay;
+export const Dolapay: IDola = ((window as unknown) as DolaExtendedWindow).Dolapay;
 
 export const loadIframe = (merchantId: string) => {
   try {
@@ -67,14 +66,12 @@ export const showIframe = (cart: Cart, merchantId: string) => {
     if (isNil(merchantId)) throw new Error('missing merchant id');
 
     setTimeout(() => {
-      const iframe: HTMLIFrameElement = document?.getElementById(
-        'dolapayIframe'
-      ) as HTMLIFrameElement;
+      const iframe = document?.getElementById('dolapayIframe') as HTMLIFrameElement;
 
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage(
           { cart, secret: `dola_${merchantId}` },
-          'https://checkout.dola.me' as string
+          'https://checkout.dola.me'
         );
       }
     }, 350);
@@ -86,8 +83,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
 export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
   if (event.origin !== 'https://checkout.dola.me') return;
 
-  const dolaWindowObject = ((window as unknown) as DolaExtendedWindow).Dolapay;
-  dolaWindowObject.orderCompleted = true;
+  Dolapay.orderCompleted = true;
   if (event.data === 'order-complete') {
     callback();
   }
@@ -137,7 +133,7 @@ const attachDolaToOne = (dataset: IDataset) => {
       items: [parsedItem],
     };
 
-    showIframe(cartObject, retrieveGlobalObject().id);
+    showIframe(cartObject, Dolapay.id);
     window.addEventListener('message', (event) =>
       dolaCheckoutEventHandler(event, () => {
         // plug in various no code integrations for basic implementation
@@ -148,16 +144,16 @@ const attachDolaToOne = (dataset: IDataset) => {
   }
 };
 
-const attachDolaToCart = (cartDataset: IDataset, instances: HTMLCollectionOf<HTMLDivElement>) => {
+const attachDolaToCart = (dataset: IDataset, instances: HTMLCollectionOf<HTMLDivElement>) => {
   try {
     const items = parseItems(instances);
 
     const cartObject: Cart = {
-      currency: cartDataset.dolaCurrency as string,
+      currency: validateField(dataset.dolaCurrency, 'Invalid currency'),
       items: items,
     };
 
-    showIframe(cartObject, retrieveGlobalObject().id);
+    showIframe(cartObject, Dolapay.id);
 
     window.addEventListener('message', (event) =>
       dolaCheckoutEventHandler(event, () => {
@@ -213,22 +209,19 @@ const composeItemObject = (dataset: IDataset): CartItem => {
 
 const parseVariantsIntoItem = (dataset: IDataset, item: CartItem) => {
   const variantPrefix = 'dolaVariant';
-  const variants = Object.keys(dataset)
-    .filter((e) => e.includes(variantPrefix))
-    .map((e) => e.slice(variantPrefix.length, e.length));
+  const variants = Object.keys(dataset).filter((e) => e.includes(variantPrefix));
 
-  if (variants.length > 0) {
-    variants.map((each, index) => {
-      const tempObj = {
-        id: nanoid(),
-        name: variants[index],
-        value: dataset[`${variantPrefix}${each}`],
-      };
+  const variantInfo = variants.map((key, index) => {
+    const tempObj: VariantInfo = {
+      id: nanoid(),
+      name: variants[index].slice(variantPrefix.length, key.length),
+      value: dataset[key] as string,
+    };
+    return tempObj;
+  });
 
-      item.variantInfo?.push(tempObj as VariantInfo);
-      return item;
-    });
-  }
-
-  return item;
+  return {
+    ...item,
+    variantInfo,
+  };
 };
