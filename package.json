@@ -1,7 +1,10 @@
 {
-  "name": "@dolacheckout/buy-now",
-  "author": "Adeniyi <adeniyi@dola.me>",
-  "module": "dist/buy-now.esm.js",
+  "name": "@dolacheckout/bep",
+  "author": {
+    "name": "Dola Engineering",
+    "email": "support@dola.me"
+  },
+  "module": "dist/index.js",
   "version": "0.1.6",
   "license": "MIT",
   "main": "dist/index.js",
@@ -15,14 +18,14 @@
   },
   "scripts": {
     "start": "parcel src/index.ts",
-    "build": "parcel build src/index.ts",
+    "build": "npm run lint && parcel build src/index.ts",
     "lint": "tsc --noEmit",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dolapay/dola-buy-now.git"
+    "url": " https://github.com/dolapay/backendless-ecommerce-platform.git"
   },
   "dependencies": {
     "nanoid": "^3.1.20"
@@ -36,11 +39,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/buy-now.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/buy-now.esm.js",
+      "path": "dist/index.js",
       "limit": "10 KB"
     }
   ],

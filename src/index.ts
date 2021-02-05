@@ -1,4 +1,4 @@
-import { Cart, DolaExtendedWindow } from './types';
+import { Cart } from './types';
 import {
   loadIframe,
   showIframe,
