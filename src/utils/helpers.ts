@@ -187,8 +187,6 @@ const parseItems = (instances: HTMLCollectionOf<HTMLDivElement>) => {
 };
 
 const validateField = (field: string | undefined, error: string) => {
-  try {
-  } catch (error) {}
   if (isNil(field)) throw new Error(error);
   else {
     return field;
