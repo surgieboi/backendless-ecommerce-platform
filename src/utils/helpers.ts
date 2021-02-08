@@ -27,6 +27,7 @@ export const createDolaIframe = (merchantId: string) => {
 
     dolaIframe.src = `https://checkout.dola.me/${merchantId}`;
     dolaIframe.style.width = '100%';
+    dolaIframe.title = 'dola-bep-checkout';
     dolaIframe.style.height = '100%';
     dolaIframe.style.border = 'none';
     dolaIframe.loading = 'lazy';
