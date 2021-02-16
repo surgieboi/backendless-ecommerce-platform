@@ -161,7 +161,7 @@ Dola's Zapier integration includes:
 
 ## Order API
 
-Manage orders using Dola's REST API; [view docs](https://github.com/dolapay/API-Docs).
+Manage orders using Dola's REST API; [view docs](https://docs.dola.me/#overview).
 
 ## Reference
 
