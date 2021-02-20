@@ -25,7 +25,7 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `https://checkout.dola.me/${merchantId}?url=${location.origin}`;
+    dolaIframe.src = `https://dev.checkout.dola.me/${merchantId}?url=${location.origin}`;
     dolaIframe.style.width = '100%';
     dolaIframe.title = 'dola-bep-checkout';
     dolaIframe.style.height = '100%';
@@ -47,7 +47,7 @@ export const createDolaIframe = (merchantId: string) => {
 export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
   try {
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'https://checkout.dola.me') return;
+      if (event.origin !== 'https://dev.checkout.dola.me') return;
 
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-99999';
@@ -72,7 +72,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage(
           { cart, secret: `dola_${merchantId}` },
-          'https://checkout.dola.me'
+          'https://dev.checkout.dola.me'
         );
       }
     }, 350);
@@ -82,7 +82,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
 };
 
 export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
-  if (event.origin !== 'https://checkout.dola.me') return;
+  if (event.origin !== 'https://dev.checkout.dola.me') return;
 
   Dolapay.orderCompleted = true;
   if (event.data === 'order-complete') {
