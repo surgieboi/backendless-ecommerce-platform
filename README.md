@@ -7,11 +7,11 @@
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Setup](#setup)
-  - [Javascript SDK](#javascript-sdk)
   - [Basic Installation](#basic-installation)
     - [data-dola-buynow](#data-dola-buynow)
     - [data-dola-cart](#data-dola-cart)
     - [data-dola-cartaction](#data-dola-cartaction)
+  - [Javascript SDK](#javascript-sdk)
 - [Zapier Integration](#zapier-integration)
   - [Triggers](#triggers)
   - [Actions](#actions)
@@ -161,7 +161,7 @@ Dola's Zapier integration includes:
 
 ## Order API
 
-Manage orders using Dola's REST API; [view docs](https://github.com/dolapay/API-Docs).
+Manage orders using Dola's REST API; [view docs](https://docs.dola.me/#overview).
 
 ## Reference
 
