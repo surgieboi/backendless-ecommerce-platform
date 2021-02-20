@@ -129,12 +129,14 @@ export const fetchDolaInstances = () => {
 const attachDolaToOne = (dataset: IDataset) => {
   try {
     const parsedItem = parseVariantsIntoItem(dataset, composeItemObject(dataset));
+
     const cartObject: Cart = {
       currency: validateField(dataset.dolaCurrency, 'Invalid currency'),
       items: [parsedItem],
     };
 
     showIframe(cartObject, Dolapay.id);
+
     window.addEventListener('message', (event) =>
       dolaCheckoutEventHandler(event, () => {
         // plug in various no code integrations for basic implementation
@@ -191,6 +193,34 @@ const validateField = (field: string | undefined, error: string) => {
   }
 };
 
+export const validateCart = (cart: Cart) => {
+  const validatedItems = cart.items.map((eachCartDetail) => {
+    const item: CartItem = {
+      id: validateField(eachCartDetail.id, 'Invalid product Id'),
+      image: validateField(eachCartDetail.image, 'Invalid product Image'),
+      quantity: parseInt(validateField(eachCartDetail.quantity.toString(), 'Invalid quantity'), 10),
+      title: validateField(eachCartDetail.title, 'Invalid title'),
+      price: parseInt(validateField(eachCartDetail.price.toString(), 'Invalid price'), 10),
+      grams: parseInt(validateField(eachCartDetail.grams.toString(), 'Invalid weight'), 10),
+      sku: validateField(eachCartDetail.sku, 'Invalid sku'),
+      variantInfo: [],
+    };
+
+    if (!isNil(eachCartDetail.willBeShipped)) {
+      item.willBeShipped = eachCartDetail.willBeShipped;
+    }
+
+    return item;
+  });
+
+  const validatedCart = {
+    currency: validateField(cart.currency, 'Invalid currency'),
+    items: validatedItems,
+  };
+
+  return validatedCart;
+};
+
 const composeItemObject = (dataset: IDataset): CartItem => {
   const item: CartItem = {
     id: validateField(dataset.dolaId, 'Invalid product Id'),
@@ -201,10 +231,11 @@ const composeItemObject = (dataset: IDataset): CartItem => {
     grams: parseInt(validateField(dataset.dolaWeight, 'Invalid weight'), 10),
     sku: validateField(dataset.dolaSku, 'Invalid sku'),
     variantInfo: [],
-    subTotal:
-      parseInt(validateField(dataset.dolaPrice, 'Invalid price'), 10) *
-      parseInt(validateField(dataset.dolaQuantity, 'Invalid quantity'), 10),
   };
+
+  if (!isNil(dataset.dolaWillbeshipped)) {
+    item.willBeShipped = dataset.dolaWillbeshipped === 'true' ? true : false;
+  }
 
   return item;
 };

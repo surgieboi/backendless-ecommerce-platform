@@ -7,13 +7,14 @@ import {
   addListenerToInstances,
   Dolapay,
   fetchDolaInstances,
+  validateCart,
 } from './utils/helpers';
 import { isNil } from './utils/typeCheck';
 
 const Dola = (() => {
   const attachDola = (cart: Cart, callback: () => void) => {
     try {
-      showIframe(cart, Dolapay.id);
+      showIframe(validateCart(cart), Dolapay.id);
 
       window.addEventListener('message', (event) => dolaCheckoutEventHandler(event, callback));
     } catch (error) {
@@ -27,14 +28,15 @@ const Dola = (() => {
         if (isNil(Dolapay.id)) throw new Error('invalid merchant id');
 
         Dolapay.orderCompleted = false;
-        attachDolaEventListeners(loadIframe(Dolapay.id));
 
         if (Dolapay.type === 'sdk') {
+          attachDolaEventListeners(loadIframe(Dolapay.id));
           Dolapay.attachDola = attachDola;
         } else if (Dolapay.type === 'basic') {
+          attachDolaEventListeners(loadIframe(Dolapay.id));
           setInterval(() => addListenerToInstances(fetchDolaInstances()), 1000);
         } else {
-          throw new Error('invalid buy now implementation type');
+          throw new Error('invalid BEP instance');
         }
       } catch (err) {
         console.error(err.toString());

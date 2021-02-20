@@ -11,8 +11,8 @@ export interface CartItem {
   price: number;
   grams: number;
   variantInfo?: VariantInfo[];
-  sku?: string;
-  subTotal: number;
+  sku: string;
+  willBeShipped?: boolean;
 }
 
 export interface VariantInfo {
