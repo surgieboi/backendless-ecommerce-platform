@@ -42,11 +42,11 @@ To get started, reference the documentation below to add BEP to any static site.
 
 ## Getting Started
 
-1. Login to [Dola](https://dola.me).
+1. Login or sign-up for [Dola](https://dola.me).
 
-2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches your website.
+2. Prcoeed to Settings, click on `Appky` and go through the merchant onboarding process. Note, make sure that the `Website URL` field matches the URL of where you'd like to run BEP.
 
-3. When setting up, depending on your use case, you can select the `Basic Installation` or `Javascript SDK` option. Paste the copied snippet in the `<head>` section of your base html file.
+3. To install BEP, you can select either `Basic Installation` or `Javascript SDK`. Depending on your selection, paste the copied snippet in the `<head>` section of your base HTML file.
 
 ## Setup
 
@@ -287,7 +287,7 @@ window.Dolapay:IDolapay
 
 ## Contribute
 
-If you like the idea behind BEP and want to become a contributor - do not hesitate and check our list of the active issues or contact us directly via bep@dola.me.
+If you like the idea behind BEP and want to become a contributor - do not hesitate and check our list of the active issues or contact us directly via bep@dola.me or [join our Discord](https://discord.gg/9ZbKMHa).
 
 If you have discovered a :ant: or have a feature suggestion, feel free to create an issue on Github.
 
