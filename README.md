@@ -26,13 +26,13 @@ BEP is short for “Backendless Ecommerce Platform,” and it turns any website 
 
 The best part?
 
-BEP doesn't require a backend or CMS! Just add our snippet and you're in business _- literally!_
+There's no backend or CMS to manage. Just add our snippet and you're in business!
 
 With BEP, you can instantly accept payments from 195 countries, ship globally, get paid, and it's free _- standard 2.9% + $0.30 processing fees apply._
 
 Whether you're building a direct-to-consumer site, a landing page for your latest drop, or a side hustle with friends and family, BEP does it all.
 
-Also, as orders come in, BEP provides you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an API, accessible via API keys and a Zapier app, enabling you to build automations and sync data that's relevant to your business.
+Also, as orders come in, BEP gives you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an [API](https://docs.dola.me/#overview) and [Zapier app](https://zapier.com/apps/dola/integrations), so you can sync orders with your back-office. 
 
 For now, BEP is available for merchants in the U.S. and U.K.; but, consumers everywhere can purchase from a BEP store.
 
