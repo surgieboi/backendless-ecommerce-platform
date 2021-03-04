@@ -1,4 +1,4 @@
-# Backendless Ecommerce Platform
+# Backendless E-commerce Platform
 
 ![BEP Demo site](images/BEP.jpg)
 
@@ -22,7 +22,7 @@
 
 ## Overview
 
-BEP is short for “Backendless Ecommerce Platform,” and it turns any website into a shop with just one line of code.
+BEP is short for “Backendless E-commerce Platform,” and it turns any website into a shop with just one line of code.
 
 The best part?
 
