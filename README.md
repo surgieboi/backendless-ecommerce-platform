@@ -44,7 +44,7 @@ To get started, reference the documentation below to add BEP to any static site.
 
 1. Login or sign-up for [Dola](https://dola.me).
 
-2. Prcoeed to Settings, click on `Appky` and go through the merchant onboarding process. Note, make sure that the `Website URL` field matches the URL of where you'd like to run BEP.
+2. Prcoeed to Settings, click on `Apply` and go through the merchant onboarding process. Note, make sure that the `Website URL` field matches the URL of where you'd like to run BEP.
 
 3. To install BEP, you can select either `Basic Installation` or `Javascript SDK`. Depending on your selection, paste the copied snippet in the `<head>` section of your base HTML file.
 
