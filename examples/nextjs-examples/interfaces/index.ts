@@ -9,7 +9,7 @@ export type User = {
   name: string;
 };
 
-interface Cart {
+export interface Cart {
   currency: string;
   items: CartItem[];
 }

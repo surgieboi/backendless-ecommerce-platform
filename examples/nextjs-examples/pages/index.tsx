@@ -1,29 +1,31 @@
 import Head from 'next/head';
-import { DolaWindow } from '../interfaces';
+import { DolaWindow, Cart } from '../interfaces';
 import styles from '../styles.module.css';
 import Image from 'next/image';
 
 const IndexPage = () => {
   const handleClick = () => {
-    ((window as unknown) as DolaWindow).Dolapay.attachDola(
-      {
-        currency: 'USD',
-        items: [
-          {
-            id: 'randomId',
-            image: 'https://cdn.dola.me/swag-store/champion-dad-hat-black-front-604809c8b4a4f.jpg',
-            quantity: 1,
-            title: 'sample product - Dola hat',
-            price: 100,
-            grams: 30,
-            sku: 'randomproductsku',
-          },
-        ],
-      },
-      () => {
-        console.log('done ');
-      }
-    );
+    const sampleCart: Cart = {
+      currency: 'USD',
+      items: [
+        {
+          id: 'randomId',
+          image: 'https://cdn.dola.me/swag-store/champion-dad-hat-black-front-604809c8b4a4f.jpg',
+          quantity: 1,
+          title: 'sample product - Dola hat',
+          price: 100,
+          grams: 30,
+          sku: 'randomproductsku',
+        },
+      ],
+    };
+
+    const sampleCallback = () => {
+      // this callback is called upon successful checkouts
+      alert('successful checkout');
+    };
+
+    ((window as unknown) as DolaWindow).Dolapay.attachDola(sampleCart, sampleCallback);
   };
 
   return (
