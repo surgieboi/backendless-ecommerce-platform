@@ -18,7 +18,6 @@
   },
   "scripts": {
     "start": "parcel src/index.ts",
-    "preinstall": "npx npm-force-resolutions",
     "build": "npm run lint && parcel build src/index.ts",
     "lint": "tsc --noEmit",
     "size": "size-limit",

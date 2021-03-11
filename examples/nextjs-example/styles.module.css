@@ -1,0 +1,191 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5vw auto;
+  flex-direction: column;
+  font-family: 'Arial, Helvetica, sans-serif';
+}
+
+.wrapper {
+  width: 100%;
+  margin-top: 5vw;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.buttonWrapper {
+  width: 100%;
+  background: black;
+  display: inline-block;
+  border-radius: 0.63vw;
+  position: relative;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  align-items: center;
+  border-radius: 8px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: -1px;
+  line-height: 1.5;
+  outline: none;
+  transition: transform 0.1s ease-out;
+  animation-duration: 1.2s;
+  animation-name: dolaShake;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+
+.neutralDarkMode {
+  background: linear-gradient(270deg, #000000 0%, #313131 100%);
+  border: 2px solid #000000;
+  color: #ffffff;
+}
+
+.paddedWrapper {
+  width: 300px;
+  padding: 20px;
+}
+
+.paddedWrapper:hover .btn {
+  animation-name: none;
+  transform: translate(5px, -5px);
+}
+
+.btn:active,
+.btn:focus {
+  outline: none;
+  transform: translate(0, 0);
+}
+
+.topText {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  color: #0b0b0b;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+
+.topText span {
+  color: #0b0b0b;
+  letter-spacing: -0.03em;
+}
+
+.topText span:nth-child(1) {
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+.topText span:nth-child(2) {
+  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 4px;
+}
+
+.overlay {
+  align-items: center;
+  border-radius: 8px;
+  cursor: progress;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: none;
+  z-index: 1;
+  animation-duration: 1.2s;
+  animation-name: dolaShake;
+  animation-iteration-count: infinite;
+}
+
+.neutralOverlayDarkMode {
+  background: linear-gradient(270deg, #000000 0%, #313131 100%);
+  border: 2px solid #000000;
+}
+
+.loaderBall {
+  will-change: opacity;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: loading 0.7s ease-in infinite alternate;
+}
+
+.neutralLoaderBallDarkMode {
+  background-color: #ffffff;
+}
+
+.ball2 {
+  animation-delay: 0.33s;
+}
+
+.ball3 {
+  animation-delay: 0.66s;
+}
+
+.textWrapper {
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes loading {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dolaShake {
+  0% {
+    transform: translate(2px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(0px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(2px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(2px, 2px) rotate(0deg);
+  }
+}
+
+@media (max-width: 1079px) {
+  .buttonWrapper {
+    border-radius: 3.16vw;
+  }
+}

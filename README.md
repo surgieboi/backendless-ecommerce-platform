@@ -26,13 +26,13 @@ BEP is short for “Backendless Ecommerce Platform,” and it turns any website 
 
 The best part?
 
-BEP doesn't require a backend or CMS! Just add our snippet and you're in business _- literally!_
+There's no backend or CMS to manage. Just add our snippet and you're in business!
 
 With BEP, you can instantly accept payments from 195 countries, ship globally, get paid, and it's free _- standard 2.9% + $0.30 processing fees apply._
 
 Whether you're building a direct-to-consumer site, a landing page for your latest drop, or a side hustle with friends and family, BEP does it all.
 
-Also, as orders come in, BEP provides you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an API, accessible via API keys and a Zapier app, enabling you to build automations and sync data that's relevant to your business.
+Also, as orders come in, BEP gives you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an [API](https://docs.dola.me/#overview) and [Zapier app](https://zapier.com/apps/dola/integrations), so you can sync orders with your back-office.
 
 For now, BEP is available for merchants in the U.S. and U.K.; but, consumers everywhere can purchase from a BEP store.
 
@@ -42,11 +42,11 @@ To get started, reference the documentation below to add BEP to any static site.
 
 ## Getting Started
 
-1. Login to [Dola](https://dola.me).
+1. Login or sign-up for [Dola](https://dola.me).
 
-2. Navigate to settings and click on `Become a merchant` and go through the onboarding process. Make sure that the `Website URL` field matches your website.
+2. Prcoeed to Settings, click on `Apply` and go through the merchant onboarding process. Note, make sure that the `Website URL` field matches the URL of where you'd like to run BEP.
 
-3. When setting up, depending on your use case, you can select the `Basic Installation` or `Javascript SDK` option. Paste the copied snippet in the `<head>` section of your base html file.
+3. To install BEP, you can select either `Basic Installation` or `Javascript SDK`. Depending on your selection, paste the copied snippet in the `<head>` section of your base HTML file.
 
 ## Setup
 
@@ -131,7 +131,6 @@ const cart = {
       price: 35000,
       grams: 543,
       sku: 'randomproductsku',
-      subTotal: 35000,
     },
   ],
 };
@@ -288,7 +287,7 @@ window.Dolapay:IDolapay
 
 ## Contribute
 
-If you like the idea behind BEP and want to become a contributor - do not hesitate and check our list of the active issues or contact us directly via bep@dola.me.
+If you like the idea behind BEP and want to become a contributor - do not hesitate and check our list of the active issues or contact us directly via bep@dola.me or [join our Discord](https://discord.gg/9ZbKMHa).
 
 If you have discovered a :ant: or have a feature suggestion, feel free to create an issue on Github.
 
