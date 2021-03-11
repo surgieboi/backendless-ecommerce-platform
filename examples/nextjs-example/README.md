@@ -2,14 +2,6 @@
 
 This is a base project bootstrapping a Next.js TypeScript project with BEP preinstalled.
 
-## Deploy your own
-
-Deploy this example using [Vercel](https://vercel.com)
-
-> But first make sure to have the necessary [pre-requisites](#pre-requisites).
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fdolapay%2Fbackendless-ecommerce-platform%2Ftree%2Fdevelop%2Fexamples%2Fnextjs-example&env=NEXT_PUBLIC_MERCHANT_ID&envDescription=Your%20merchant%20ID&envLink=https%3A%2F%2Fgithub.com%2Fdolapay%2Fbackendless-ecommerce-platform%2Ftree%2Fdevelop%2Fexamples%2Fnextjs-example%23pre-requisites&project-name=bep-next-typescript-starter&repo-name=bep-next-typescript)
-
 ## Pre-requisites
 
 - `MERCHANT_ID`: If you do not know how to find your `MERCHANT_ID`, refer to the [How to use it](#How-to-use-it) section.
@@ -21,7 +13,7 @@ Deploy this example using [Vercel](https://vercel.com)
 - Clone the repo to your current working directory with this command
 
   ```bash
-  npx degit dolapay/backendless-ecommerce-platform/examples/nextjs-example#develop nextjs-example
+  npx degit dolapay/backendless-ecommerce-platform/examples/nextjs-example nextjs-example
   ```
 
 - Upon cloning this starter project, run `cd nextjs-example` to change directory into the project.
