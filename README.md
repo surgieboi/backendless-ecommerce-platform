@@ -45,10 +45,10 @@ To get started, reference the documentation below to add BEP to any static site.
 
 ![BEP Demo site](images/bep-example-store.jpg)
 
-[BEP's demo site](https://bep-example.dola.me/) uses its Javascript SDK to create products and a cart session.<br><br>
-The demo includes:
+[BEP's demo site](https://bep-example.dola.me/) uses its Javascript SDK to create products and a cart.<br><br>
+Demo includes:
 
-- Dola's 1-click Checkout
+- [Dola's 1-click Checkout](https://dola.me)
 - Shopping Cart
 - Complex and Simple Products
 
@@ -59,9 +59,9 @@ The demo includes:
 ![BEP Demo site](images/bep-store.jpg)
 
 [BEP's custom theme site](https://bep.life) uses its Javascript SDK to sell a single product.<br><br>
-The demo includes:
+Dmo includes:
 
-- Dola's 1-click Checkout
+- [Dola's 1-click Checkout](https://dola.me)
 - Single Product Store
 
 [View Demo](https://bep-example.dola.me/)
