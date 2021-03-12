@@ -43,7 +43,7 @@ To get started, reference the documentation below to add BEP to any static site.
 
 ## See it in Action
 
-![BEP Demo site](images/bep-example-store.png)
+![BEP Demo site](images/bep-example-store.jpg)
 
 [BEP's demo site](https://bep-example.dola.me/) uses its Javascript SDK to create products and a cart session.<br><br>
 The demo includes:
@@ -56,7 +56,7 @@ The demo includes:
 
 ## BEP Custom Theme
 
-![BEP Demo site](images/bep-store.png)
+![BEP Demo site](images/bep-store.jpg)
 
 [BEP's custom theme site](https://bep.life) uses its Javascript SDK to sell a single product.<br><br>
 The demo includes:
