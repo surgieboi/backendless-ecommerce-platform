@@ -203,7 +203,7 @@ export const validateCart = (cart: Cart) => {
       price: parseInt(validateField(eachCartDetail.price.toString(), 'Invalid price'), 10),
       grams: parseInt(validateField(eachCartDetail.grams.toString(), 'Invalid weight'), 10),
       sku: validateField(eachCartDetail.sku, 'Invalid sku'),
-      variantInfo: [],
+      variantInfo: eachCartDetail.variantInfo ? eachCartDetail.variantInfo : [],
     };
 
     if (!isNil(eachCartDetail.willBeShipped)) {
