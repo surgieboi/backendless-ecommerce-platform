@@ -5,6 +5,8 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [See it in Action](#see-it-in-action)
+- [BEP Custom Theme](#bep-custom-theme)
 - [Getting Started](#getting-started)
 - [Setup](#setup)
   - [Basic Installation](#basic-installation)
@@ -16,6 +18,7 @@
   - [Triggers](#triggers)
   - [Actions](#actions)
 - [Reference](#reference)
+- [Examples](#examples)
 - [Browser Compatibility](#browser-compatibility)
 - [Contribute](#contribute)
 - [License](#license)
@@ -38,7 +41,30 @@ For now, BEP is available for merchants in the U.S. and U.K.; but, consumers eve
 
 To get started, reference the documentation below to add BEP to any static site.
 
-[Demo Site](https://bep-example.dola.me/)
+## See it in Action
+
+![BEP Demo site](images/bep-example-store.jpg)
+
+[BEP's demo site](https://bep-example.dola.me/) uses its Javascript SDK to create products and a cart.<br><br>
+Demo includes:
+
+- [Dola's 1-click Checkout](https://dola.me)
+- Shopping Cart
+- Complex and Simple Products
+
+[View Demo](https://bep-example.dola.me/)
+
+## BEP Custom Theme
+
+![BEP Demo site](images/bep-store.jpg)
+
+[BEP's custom theme site](https://bep.life) uses its Javascript SDK to sell a single product.<br><br>
+Dmo includes:
+
+- [Dola's 1-click Checkout](https://dola.me)
+- Single Product Store
+
+[View Demo](https://bep-example.dola.me/)
 
 ## Getting Started
 
@@ -277,6 +303,10 @@ window.Dolapay:IDolapay
     value: string;
   }
   ```
+
+## Examples
+
+- [NextJS](https://github.com/dolapay/backendless-ecommerce-platform/tree/master/examples/nextjs-example)
 
 ## Browser Compatibility
 
