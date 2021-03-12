@@ -16,6 +16,7 @@
   - [Triggers](#triggers)
   - [Actions](#actions)
 - [Reference](#reference)
+- [Examples](#examples)
 - [Browser Compatibility](#browser-compatibility)
 - [Contribute](#contribute)
 - [License](#license)
@@ -32,7 +33,7 @@ With BEP, you can instantly accept payments from 195 countries, ship globally, g
 
 Whether you're building a direct-to-consumer site, a landing page for your latest drop, or a side hustle with friends and family, BEP does it all.
 
-Also, as orders come in, BEP gives you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an [API](https://docs.dola.me/#overview) and [Zapier app](https://zapier.com/apps/dola/integrations), so you can sync orders with your back-office. 
+Also, as orders come in, BEP gives you with everything you need to fulfill, including pre-paid duties, shipping, taxes, and more. BEP also comes with an [API](https://docs.dola.me/#overview) and [Zapier app](https://zapier.com/apps/dola/integrations), so you can sync orders with your back-office.
 
 For now, BEP is available for merchants in the U.S. and U.K.; but, consumers everywhere can purchase from a BEP store.
 
@@ -277,6 +278,10 @@ window.Dolapay:IDolapay
     value: string;
   }
   ```
+
+## Examples
+
+- [NextJS](https://github.com/dolapay/backendless-ecommerce-platform/tree/master/examples/nextjs-example)
 
 ## Browser Compatibility
 
