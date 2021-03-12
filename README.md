@@ -131,7 +131,6 @@ const cart = {
       price: 35000,
       grams: 543,
       sku: 'randomproductsku',
-      subTotal: 35000,
     },
   ],
 };
@@ -169,17 +168,18 @@ Manage orders using Dola's REST API; [view docs](https://docs.dola.me/#overview)
 
 These are the custom data attributes supported by BEP, these attributes are used to describe product/cart details depending on the attached action attribute.
 
-| Attribute             | Description                                                                                          |
-| --------------------- | ---------------------------------------------------------------------------------------------------- |
-| `data-dola-title`     | Required. It captures the name of the product.                                                       |
-| `data-dola-quantity`  | Required. It captures the quantity of the product being purchased.                                   |
-| `data-dola-image`     | Required. It refers to a the image for the product. It accepts a url string.                         |
-| `data-dola-price`     | Required. It captures the price of the product.                                                      |
-| `data-dola-weight`    | Required. It captures the weight of the product. Adjust for the quantity of product being purchased. |
-| `data-dola-id`        | Required. It refers to the unique id of this product.                                                |
-| `data-dola-sku`       | Required. It refers to your sku for the product.                                                     |
-| `data-dola-currency`  | Required. It sets the currency you want payments in.                                                 |
-| `data-dola-variant-*` | Optional. It is used to set variants, where `*` is replaced by the name of the variant.              |
+| Attribute                 | Description                                                                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `data-dola-title`         | Required. It captures the name of the product.                                                                                         |
+| `data-dola-quantity`      | Required. It captures the quantity of the product being purchased.                                                                     |
+| `data-dola-image`         | Required. It refers to a the image for the product. It accepts a url string.                                                           |
+| `data-dola-price`         | Required. It captures the price of the product.                                                                                        |
+| `data-dola-weight`        | Required. It captures the weight of the product. Adjust for the quantity of product being purchased.                                   |
+| `data-dola-id`            | Required. It refers to the unique id of this product.                                                                                  |
+| `data-dola-sku`           | Required. It refers to your sku for the product.                                                                                       |
+| `data-dola-currency`      | Required. It sets the currency you want payments in.                                                                                   |
+| `data-dola-willbeshipped` | Optional. It sets the product's shipping type, `false` indicates product will not be shipped and instead will be available for pickup. |
+| `data-dola-variant-*`     | Optional. It is used to set variants, where `*` is replaced by the name of the variant.                                                |
 
 There is support for `Simple` and `Complex` type products.
 
@@ -267,8 +267,8 @@ window.Dolapay:IDolapay
     price: number;
     grams: number;
     variantInfo?: VariantInfo[];
-    sku?: string;
-    subTotal: number;
+    sku: string;
+    willBeShipped?: boolean;
   }
 
   interface VariantInfo {
