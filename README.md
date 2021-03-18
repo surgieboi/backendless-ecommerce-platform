@@ -68,7 +68,7 @@ Dmo includes:
 
 ## Additional Examples
 
-- [NextJS](https://github.com/dolapay/backendless-ecommerce-platform/tree/master/examples/nextjs-example)
+- [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
 
 ## Getting Started
 
@@ -307,7 +307,7 @@ window.Dolapay:IDolapay
     value: string;
   }
   ```
-  
+
 ## Browser Compatibility
 
 - last 2 Chrome versions
