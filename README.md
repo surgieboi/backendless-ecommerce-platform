@@ -7,6 +7,7 @@
 - [Overview](#overview)
 - [See it in Action](#see-it-in-action)
 - [BEP Custom Theme](#bep-custom-theme)
+- [Additional Examples](#additional-examples)
 - [Getting Started](#getting-started)
 - [Setup](#setup)
   - [Basic Installation](#basic-installation)
@@ -18,7 +19,6 @@
   - [Triggers](#triggers)
   - [Actions](#actions)
 - [Reference](#reference)
-- [Examples](#examples)
 - [Browser Compatibility](#browser-compatibility)
 - [Contribute](#contribute)
 - [License](#license)
@@ -65,6 +65,10 @@ Dmo includes:
 - Single Product Store
 
 [View Demo](https://bep-example.dola.me/)
+
+## Additional Examples
+
+- [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
 
 ## Getting Started
 
@@ -303,10 +307,6 @@ window.Dolapay:IDolapay
     value: string;
   }
   ```
-
-## Examples
-
-- [NextJS](https://github.com/dolapay/backendless-ecommerce-platform/tree/master/examples/nextjs-example)
 
 ## Browser Compatibility
 
