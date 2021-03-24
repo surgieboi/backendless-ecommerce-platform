@@ -69,6 +69,7 @@ Dmo includes:
 ## Additional Examples
 
 - [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
+- [GraphCMS + NextJS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-next)
 
 ## Getting Started
 
