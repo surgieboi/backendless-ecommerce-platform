@@ -48,6 +48,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.7.0",
+    "@types/node": "^14.14.36",
     "parcel-bundler": "^1.12.4",
     "size-limit": "^4.7.0",
     "tslib": "^2.0.3",
