@@ -10,6 +10,8 @@ import {
 } from '../types';
 import { isNil } from './typeCheck';
 
+const DolaCheckoutURL :string | undefined = process.env.DOLA_CHECKOUT_APP_URL;
+
 export const Dolapay: IDola = ((window as unknown) as DolaExtendedWindow).Dolapay;
 
 export const loadIframe = (merchantId: string) => {
@@ -25,7 +27,7 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `https://checkout.dola.me/${merchantId}?url=${location.origin}`;
+    dolaIframe.src = `${DolaCheckoutURL}/${merchantId}?url=${location.origin}`;
     dolaIframe.style.width = '100%';
     dolaIframe.title = 'dola-bep-checkout';
     dolaIframe.style.height = '100%';
@@ -47,7 +49,7 @@ export const createDolaIframe = (merchantId: string) => {
 export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
   try {
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'https://checkout.dola.me') return;
+      if (event.origin !== DolaCheckoutURL) return;
 
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-99999';
@@ -72,7 +74,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage(
           { cart, secret: `dola_${merchantId}` },
-          'https://checkout.dola.me'
+          `${DolaCheckoutURL}`
         );
       }
     }, 350);
@@ -82,7 +84,7 @@ export const showIframe = (cart: Cart, merchantId: string) => {
 };
 
 export const dolaCheckoutEventHandler = (event: any, callback: () => void) => {
-  if (event.origin !== 'https://checkout.dola.me') return;
+  if (event.origin !== DolaCheckoutURL) return;
 
   Dolapay.orderCompleted = true;
   if (event.data === 'order-complete') {
@@ -117,10 +119,9 @@ export const addListenerToInstances = (buyNowInstances: HTMLCollectionOf<HTMLDiv
 
 export const fetchDolaInstances = () => {
   try {
-    const buyNowInstances = document.getElementsByClassName(
+    return document.getElementsByClassName(
       'dola-dola-bills-yall'
     ) as HTMLCollectionOf<HTMLDivElement>;
-    return buyNowInstances;
   } catch (error) {
     throw new Error(error.toString());
   }
@@ -213,12 +214,10 @@ export const validateCart = (cart: Cart) => {
     return item;
   });
 
-  const validatedCart = {
+  return {
     currency: validateField(cart.currency, 'Invalid currency'),
     items: validatedItems,
   };
-
-  return validatedCart;
 };
 
 const composeItemObject = (dataset: IDataset): CartItem => {
@@ -234,7 +233,7 @@ const composeItemObject = (dataset: IDataset): CartItem => {
   };
 
   if (!isNil(dataset.dolaWillbeshipped)) {
-    item.willBeShipped = dataset.dolaWillbeshipped === 'true' ? true : false;
+    item.willBeShipped = dataset.dolaWillbeshipped === 'true';
   }
 
   return item;
