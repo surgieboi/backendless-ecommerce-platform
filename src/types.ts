@@ -30,6 +30,7 @@ export interface IDola {
   attachDola?: (cart: Cart, callback: () => void) => void;
   type?: string;
   orderCompleted: boolean;
+  shopperID?: string;
 }
 
 export interface DolaExtendedWindow extends Window {

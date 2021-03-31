@@ -10,7 +10,7 @@ import {
 } from '../types';
 import { isNil } from './typeCheck';
 
-const DolaCheckoutURL :string | undefined = process.env.DOLA_CHECKOUT_APP_URL;
+const DolaCheckoutURL: string | undefined = process.env.DOLA_CHECKOUT_APP_URL;
 
 export const Dolapay: IDola = ((window as unknown) as DolaExtendedWindow).Dolapay;
 
@@ -53,6 +53,10 @@ export const attachDolaEventListeners = (dolaIframe: IframeExtended) => {
 
       if (event.data['action'] === 'close-dola') {
         dolaIframe.style.zIndex = '-99999';
+      }
+
+      if (event.data['action'] === 'shopperId') {
+        Dolapay.shopperID = event.data['payload'];
       }
 
       if (event.data === 'opened-dola') {
