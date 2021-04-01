@@ -59,15 +59,31 @@ Demo includes:
 ![BEP Demo site](images/bep-store.jpg)
 
 [BEP's custom theme site](https://bep.life) uses its Javascript SDK to sell a single product.<br><br>
-Dmo includes:
+Demo includes:
 
 - [Dola's 1-click Checkout](https://dola.me)
 - Single Product Store
 
 [View Demo](https://bep-example.dola.me/)
 
+## Airtable Commerce
+
+![Airtable Commerce](images/bep-airtable-commerce.jpg)
+
+[Airtable Agency](https://www.airtable.agency/dola-fiy-one-click-e-commerce-store) uses BEP's Basic Installation to create and sell products dynamically from Airtable.<br><br>
+Demo includes:
+
+- [Dola's 1-click Checkout](https://dola.me)
+- Shopping Cart
+- Complex and Simple Products
+- Digital Product Types
+- Manage Customers, Orders, and Products in Airtable
+
+[View Demo](https://www.airtable.agency/dola-fiy-one-click-e-commerce-store)
+
 ## Additional Examples
 
+- [Airtable](https://www.airtable.agency/dola-fiy-one-click-e-commerce-store)
 - [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
 - [GraphCMS + NextJS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-next)
 - [Gatsby](https://github.com/dolapay/bep-examples/tree/main/with-gatsby)
