@@ -84,10 +84,10 @@ Demo includes:
 ## Additional Examples
 
 - [Airtable](https://www.airtable.agency/dola-fiy-one-click-e-commerce-store)
-- [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
-- [GraphCMS + NextJS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-next)
 - [Gatsby](https://github.com/dolapay/bep-examples/tree/main/with-gatsby)
-- [GraphCMS + Gatsby](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-gatsby)
+- [Gatsby + GraphCMS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-gatsby)
+- [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
+- [NextJS + GraphCMS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-next)
 
 ## Getting Started
 
