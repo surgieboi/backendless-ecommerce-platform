@@ -88,6 +88,8 @@ Demo includes:
 - [Gatsby + GraphCMS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-gatsby)
 - [NextJS](https://github.com/dolapay/bep-examples/tree/main/with-next)
 - [NextJS + GraphCMS](https://github.com/dolapay/bep-examples/tree/main/with-graphcms-next)
+- [NuxtJS](https://github.com/dolapay/bep-examples/tree/main/with-nuxt)
+- [NuxtJS + GraphCMS](https://github.com/dolapay/bep-examples/tree/main/with-nuxt-graphcms)
 
 ## Getting Started
 
