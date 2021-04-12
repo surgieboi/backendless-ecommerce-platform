@@ -215,6 +215,10 @@ export const validateCart = (cart: Cart) => {
       item.willBeShipped = eachCartDetail.willBeShipped;
     }
 
+    if (!isNil(eachCartDetail.isTaxable)) {
+      item.isTaxable = eachCartDetail.isTaxable;
+    }
+
     return item;
   });
 

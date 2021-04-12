@@ -13,6 +13,7 @@ export interface CartItem {
   variantInfo?: VariantInfo[];
   sku: string;
   willBeShipped?: boolean;
+  isTaxable?: boolean;
 }
 
 export interface VariantInfo {
