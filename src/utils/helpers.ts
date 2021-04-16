@@ -244,6 +244,10 @@ const composeItemObject = (dataset: IDataset): CartItem => {
     item.willBeShipped = dataset.dolaWillbeshipped === 'true';
   }
 
+  if (!isNil(dataset.dolaIstaxable)) {
+    item.isTaxable = dataset.dolaIstaxable === 'true';
+  }
+
   return item;
 };
 
