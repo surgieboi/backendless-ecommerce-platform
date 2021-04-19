@@ -215,6 +215,10 @@ export const validateCart = (cart: Cart) => {
       item.willBeShipped = eachCartDetail.willBeShipped;
     }
 
+    if (!isNil(eachCartDetail.isTaxable)) {
+      item.isTaxable = eachCartDetail.isTaxable;
+    }
+
     return item;
   });
 
@@ -238,6 +242,10 @@ const composeItemObject = (dataset: IDataset): CartItem => {
 
   if (!isNil(dataset.dolaWillbeshipped)) {
     item.willBeShipped = dataset.dolaWillbeshipped === 'true';
+  }
+
+  if (!isNil(dataset.dolaIstaxable)) {
+    item.isTaxable = dataset.dolaIstaxable === 'true';
   }
 
   return item;

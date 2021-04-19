@@ -230,6 +230,7 @@ These are the custom data attributes supported by BEP, these attributes are used
 | `data-dola-sku`           | Required. It refers to your sku for the product.                                                                                       |
 | `data-dola-currency`      | Required. It sets the currency you want payments in.                                                                                   |
 | `data-dola-willbeshipped` | Optional. It sets the product's shipping type, `false` indicates product will not be shipped and instead will be available for pickup. |
+| `data-dola-istaxable`     | Optional. It sets the whether the product should be taxed on customer checkout, `false` indicates product will not be taxed.           |
 | `data-dola-variant-*`     | Optional. It is used to set variants, where `*` is replaced by the name of the variant.                                                |
 
 There is support for `Simple` and `Complex` type products.
@@ -320,6 +321,7 @@ window.Dolapay:IDolapay
     variantInfo?: VariantInfo[];
     sku: string;
     willBeShipped?: boolean;
+    isTaxable?: boolean;
   }
 
   interface VariantInfo {
