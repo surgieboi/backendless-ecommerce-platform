@@ -32,6 +32,7 @@ export interface IDola {
   type?: string;
   orderCompleted: boolean;
   shopperID?: string;
+  testing?: boolean
 }
 
 export interface DolaExtendedWindow extends Window {
