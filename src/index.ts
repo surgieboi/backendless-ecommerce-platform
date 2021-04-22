@@ -1,4 +1,4 @@
-import { Cart } from './types';
+import { Cart } from '~types';
 import {
   loadIframe,
   showIframe,
@@ -8,8 +8,8 @@ import {
   Dolapay,
   fetchDolaInstances,
   validateCart,
-} from './utils/helpers';
-import { isNil } from './utils/typeCheck';
+} from '~utils/helpers';
+import { isNil } from '~utils/typeCheck';
 
 const Dola = (() => {
   const attachDola = (cart: Cart, callback: () => void) => {

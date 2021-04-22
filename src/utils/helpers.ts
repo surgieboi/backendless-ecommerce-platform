@@ -7,7 +7,7 @@ import {
   IDola,
   VariantInfo,
   IDataset,
-} from '../types';
+} from '~types';
 import { isNil } from './typeCheck';
 
 const DolaCheckoutURL: string | undefined = process.env.DOLA_CHECKOUT_APP_URL;
