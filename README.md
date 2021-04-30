@@ -220,6 +220,12 @@ Manage orders using Dola's REST API; [view docs](https://docs.dola.me/#overview)
 
 ## Reference
 
+### Test Mode
+
+BEP can be loaded into Test mode. In test mode, Transactions aren't charged to the user's card.
+
+To load BEP into test mode, change the `testing` variable in your script to `true`.
+
 ### Basic Installation
 
 These are the custom data attributes supported by BEP, these attributes are used to describe product/cart details depending on the attached action attribute.

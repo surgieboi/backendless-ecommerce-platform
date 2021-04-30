@@ -27,7 +27,9 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    dolaIframe.src = `${DolaCheckoutURL}/${merchantId}?url=${location.origin}`;
+    const testingState = Dolapay.testing === true ? 'true' : 'false';
+
+    dolaIframe.src = `${DolaCheckoutURL}/${merchantId}?url=${location.origin}&testing=${testingState}`;
     dolaIframe.style.width = '100%';
     dolaIframe.title = 'dola-bep-checkout';
     dolaIframe.style.height = '100%';
