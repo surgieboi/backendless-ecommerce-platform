@@ -27,8 +27,7 @@ export const createDolaIframe = (merchantId: string) => {
   try {
     let dolaIframe: IframeExtended = document.createElement('iframe');
 
-    const testingStateExists = isNil(Dolapay.testing) ? false : Dolapay.testing;
-    const testingState = testingStateExists === true ? 'true' : 'false';
+    const testingState = Dolapay.testing === true ? 'true' : 'false';
 
     dolaIframe.src = `${DolaCheckoutURL}/${merchantId}?url=${location.origin}&testing=${testingState}`;
     dolaIframe.style.width = '100%';
